@@ -6,6 +6,6 @@ from .views import PostList, PostSerializer
 
 app_name = "post"
 urlpatterns = [
-    path('posts/', PostList.as_view()),
-    path('posts/<int:post_id>', PostDetail.as_view()),
+    path('', PostList.as_view()),
+    path('<int:pk>/', PostDetail.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

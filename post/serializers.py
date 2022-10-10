@@ -7,7 +7,7 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = ['image']
 
 class PostSerializer(serializers.ModelSerializer):
-    images = ImageSerializer(many=True, read_only=True)
+    images = ImageSerializer(many=True, read_only=True, default=None)
 
     class Meta:
         model = Post
@@ -18,5 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
         post = Post.objects.create(**validated_data)
         for image in images_data.getlist('images'):
             Image.objects.create(post=post, image=image)
+        
+        return post
 
 
