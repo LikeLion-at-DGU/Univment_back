@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'post',
     'accounts',
 
+    # 로그인/회원가입
     'rest_framework.authtoken',
+    # 'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist', # 토큰 관리에 simplejwt
     'dj_rest_auth',
     'allauth',
     'allauth.account',
@@ -146,18 +149,31 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-REST_FRAMEWORK = {
-   'DEFAULT_AUTHENTICATION_CLASSES': (
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-   )
-}
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_VERIFICATION = 'none' # 회원가입에서 이메일 인증 사용 X
 
 AUTH_USER_MODEL = 'accounts.User'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
+}
+
+ACCOUNT_UNIQUE_EMAIL = True
+
 REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'jwt_token' # 만료시간 짧은 토큰
-JWT_AUTH_REFRESH_COOKIE = 'jwt_refresh_token' #만료된 토큰을 갱신 시켜주기위한 토큰 -> 서버키로 토큰을 만들어줌
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'TOKEN_USER_CLASS': 'accounts.User',
+}

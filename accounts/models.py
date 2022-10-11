@@ -1,10 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser,BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.base_user import BaseUserManager
 
 # Create your models here.
 class UserManager(BaseUserManager):
 
-    def create_user(self, username, first_name, last_name, email, password, **kwargs):
+    def create_user(self, username, first_name, last_name, email, password, **extra_fields):
         if not username:
             raise ValueError('Users must have an username')
 
@@ -22,9 +23,10 @@ class UserManager(BaseUserManager):
             first_name=first_name,
             last_name=last_name,
             email=email,
+            **extra_fields
         )
         user.set_password(password)
-        user.save(using=self._db)
+        user.save()
         return user
 
     def create_superuser(self, username=None, first_name=None, last_name=None, email=None, password=None, **extra_fields):
@@ -34,27 +36,21 @@ class UserManager(BaseUserManager):
             last_name=last_name,
             email=email,
             password=password,
+            **extra_fields
         )
         superuser.is_staff = True
         superuser.is_superuser = True
         superuser.is_active = True
-        superuser.save(using=self._db)
+        superuser.save()
         return superuser
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractUser):
 
-    id = models.AutoField(primary_key =True)
     username = models.CharField(max_length=10, unique=True)
     first_name = models.CharField(max_length=10)
     last_name = models.CharField(max_length=10)
     email = models.EmailField(max_length=30)
-
-    is_superuser = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     objects = UserManager() # 헬퍼 클래스
 
