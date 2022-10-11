@@ -1,59 +1,65 @@
-from enum import unique
-from unittest.util import _MAX_LENGTH
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser,BaseUserManager, PermissionsMixin
 
 # Create your models here.
-
 class UserManager(BaseUserManager):
 
-    def reg_user(self, nickname, first_name, last_name, email, password):
+    def create_user(self, username, first_name, last_name, email, password, **kwargs):
+        if not username:
+            raise ValueError('Users must have an username')
 
-        if not nickname:
-            raise ValueError('필수 입력')
         if not first_name:
-            raise ValueError('필수 입력')
+            raise ValueError('Users must have an first_name')
+
         if not last_name:
-            raise ValueError('필수 입력')
+            raise ValueError('Users must have an last_name')
+
         if not email:
-            raise ValueError('필수 입력')
-        if not password:
-            raise ValueError('필수 입력')
+            raise ValueError('Users must have an email address')
 
         user = self.model(
-            nickname = nickname,
-            first_name = first_name,
-            last_name = last_name,
-            email = self.normalize_email(email),
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
         )
         user.set_password(password)
-        user.save()
-
+        user.save(using=self._db)
         return user
-    
-    def reg_admin(self, nickname, first_name, last_name, email, password):
-        user = self.reg_user(
-            email,
-            password = password,
-            nickname = nickname,
-            first_name = first_name,
-            last_name = last_name,
+
+    def create_superuser(self, username=None, first_name=None, last_name=None, email=None, password=None, **extra_fields):
+        superuser = self.create_user(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=password,
         )
-        user.is_admin = True
-        user.save()
-        return user
+        superuser.is_staff = True
+        superuser.is_superuser = True
+        superuser.is_active = True
+        superuser.save(using=self._db)
+        return superuser
 
-class User(AbstractBaseUser):
-    id = models.AutoField(primary_key=True)
+
+class User(AbstractBaseUser, PermissionsMixin):
+
+    id = models.AutoField(primary_key =True)
+    username = models.CharField(max_length=10, unique=True)
     first_name = models.CharField(max_length=10)
     last_name = models.CharField(max_length=10)
-    nickname = models.CharField(max_length=10, unique=True)
-    email = models.EmailField()
+    email = models.EmailField(max_length=30)
+
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     objects = UserManager() # 헬퍼 클래스
-    
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']  # 필수 작성
-    USERNAME_FIELD = 'nickname' # nickname으로 받은 값을 사용자의 username field에 저장
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
 
     def __str__(self):
-        return self.nickname
+        return self.username

@@ -4,5 +4,5 @@ from rest_framework import urls
 
 app_name = "accounts"
 urlpatterns = [
-     path('signup/', register.as_view()),
+     
 ]
