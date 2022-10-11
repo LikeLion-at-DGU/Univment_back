@@ -13,7 +13,7 @@
 ## API 정리
 ### 회원가입/로그인/로그아웃
 ### 회원가입
-127.0.0.1:8000/auth/registration/ - POST
+### 127.0.0.1:8000/auth/registration/ - POST
     {
         "username":"사용자이름",
         "email":"이메일주소(필수X)",
@@ -21,12 +21,12 @@
         "password2":"비밀번호 확인"
     }
 ### 로그인
-127.0.0.1:8000/auth/login/ - POST
+### 127.0.0.1:8000/auth/login/ - POST
     {
         "username":"사용자이름",
         "email":"이메일주소(필수X)",
         "password":"비밀번호"
     }
 ### 로그아웃
-127.0.0.1:8000/auth/logout - POST
+### 127.0.0.1:8000/auth/logout - POST
     값 필요 X
