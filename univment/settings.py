@@ -44,7 +44,14 @@ INSTALLED_APPS = [
     'post',
     'accounts',
 
+    # 로그인/회원가입
     'rest_framework.authtoken',
+    # 'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist', # 토큰 관리에 simplejwt
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'dj_rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -138,13 +145,36 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
 
+# AUTH_USER_MODEL = 'accounts.User'
+
+SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = 'none' # 회원가입에서 이메일 인증 사용 X
+
 AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ]
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
+}
+
+ACCOUNT_UNIQUE_EMAIL = True
+
+REST_USE_JWT = True
+# JWT_AUTH_COOKIE = 'your-auth-cookie-name'
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    # 'BLACKLIST_AFTER_ROTATION': True,
+    'TOKEN_USER_CLASS': 'accounts.User',
 }
