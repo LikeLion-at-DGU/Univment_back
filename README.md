@@ -16,7 +16,7 @@
 127.0.0.1:8000/auth/registration/ - POST
     {
         "username":"사용자이름",
-        "email":"이메일주소(필수X)",
+        "email":"이메일주소",
         "password1":"비밀번호",
         "password2":"비밀번호 확인"
     }
@@ -24,7 +24,7 @@
 127.0.0.1:8000/auth/login/ - POST
     {
         "username":"사용자이름",
-        "email":"이메일주소(필수X)",
+        "email":"이메일주소",
         "password":"비밀번호"
     }
 ### 로그아웃

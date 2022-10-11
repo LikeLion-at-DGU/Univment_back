@@ -164,10 +164,11 @@ REST_FRAMEWORK = {
     ),
 }
 
-ACCOUNT_UNIQUE_EMAIL = True
+REST_USE_JWT = True # jwt 사용 여부
+JWT_AUTH_COOKIE = 'univ-auth' # 호출할 cookie key값
+JWT_AUTH_REFRESH_COOKIE = 'univ-auth-refresh' # refresh token cookie key 값
 
-REST_USE_JWT = True
-# JWT_AUTH_COOKIE = 'your-auth-cookie-name'
+ACCOUNT_EMAIL_REQUIRED = True # email 필수 여부
 
 from datetime import timedelta
 
