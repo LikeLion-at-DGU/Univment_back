@@ -167,6 +167,7 @@ REST_FRAMEWORK = {
 ACCOUNT_UNIQUE_EMAIL = True
 
 REST_USE_JWT = True
+# JWT_AUTH_COOKIE = 'your-auth-cookie-name'
 
 from datetime import timedelta
 
@@ -174,6 +175,6 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
+    # 'BLACKLIST_AFTER_ROTATION': True,
     'TOKEN_USER_CLASS': 'accounts.User',
 }
