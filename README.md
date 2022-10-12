@@ -23,7 +23,7 @@
 ### 로그인
 ### 127.0.0.1:8000/auth/login/ - POST
     {
-        "username":"사용자이름",
+        "username":"사용자이름(필수X)",
         "email":"이메일주소",
         "password":"비밀번호"
     }

@@ -37,13 +37,13 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
 
-    username = models.CharField(max_length=10, unique=True)
-    email = models.EmailField(max_length=30)
+    username = models.CharField(max_length=10)
+    email = models.EmailField(max_length=30, unique=True)
 
     objects = UserManager() # 헬퍼 클래스
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.username

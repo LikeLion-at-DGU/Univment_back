@@ -145,8 +145,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
 
-# AUTH_USER_MODEL = 'accounts.User'
-
 SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -169,6 +167,7 @@ JWT_AUTH_COOKIE = 'univ-auth' # 호출할 cookie key값
 JWT_AUTH_REFRESH_COOKIE = 'univ-auth-refresh' # refresh token cookie key 값
 
 ACCOUNT_EMAIL_REQUIRED = True # email 필수 여부
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # 로그인 인증 수단
 
 from datetime import timedelta
 
