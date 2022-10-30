@@ -166,8 +166,18 @@ REST_USE_JWT = True # jwt 사용 여부
 JWT_AUTH_COOKIE = 'univ-auth' # 호출할 cookie key값
 JWT_AUTH_REFRESH_COOKIE = 'univ-auth-refresh' # refresh token cookie key 값
 
-ACCOUNT_EMAIL_REQUIRED = True # email 필수 여부
+ACCOUNT_EMAIL_REQUIRED = True # email 필수 여부/
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # 로그인 인증 수단
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_VERIFICATION = 'none'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER' : 'accounts.serializers.CustomRegisterSerializer',
+}
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomDetailsSerializer',
+}
 
 from datetime import timedelta
 
@@ -178,3 +188,4 @@ SIMPLE_JWT = {
     # 'BLACKLIST_AFTER_ROTATION': True,
     'TOKEN_USER_CLASS': 'accounts.User',
 }
+

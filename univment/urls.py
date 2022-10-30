@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('post/', include('post.urls')),
     path('auth/', include('dj_rest_auth.urls')),
-    # path('auth/login/', login),
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
     # path('accounts/', include('accounts.urls')),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  

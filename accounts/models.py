@@ -1,19 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 
 # Create your models here.
 class UserManager(BaseUserManager):
 
-    def create_user(self, username, email, password, **extra_fields):
-        if not username:
-            raise ValueError('Users must have an username')
+    def create_user(self, name, email, password, **extra_fields):
+        if not name:
+            raise ValueError('Users must have an name')
 
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
-            username=username,
+            name = name,
             email=email,
             **extra_fields
         )
@@ -21,9 +21,9 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, username=None, email=None, password=None, **extra_fields):
+    def create_superuser(self, name=None, email=None, password=None, **extra_fields):
         superuser = self.create_user(
-            username=username,
+            name = name,
             email=email,
             password=password,
             **extra_fields
@@ -35,15 +35,22 @@ class UserManager(BaseUserManager):
         return superuser
 
 
-class User(AbstractUser):
+class User(AbstractBaseUser):
 
-    username = models.CharField(max_length=10)
+    name = models.CharField(max_length=10)
     email = models.EmailField(max_length=30, unique=True)
+
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
     objects = UserManager() # 헬퍼 클래스
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['name']
 
     def __str__(self):
-        return self.username
+        return self.name
+
+class CustomUser(AbstractUser):
+    fullname = models.CharField(max_length = 10)
