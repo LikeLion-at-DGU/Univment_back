@@ -4,6 +4,7 @@ from .views import PostList, PostSerializer
 
 app_name = "post"
 urlpatterns = [
-    path('', PostList.as_view()),
     path('<int:pk>/', PostDetail.as_view()),
+    path('category/', CategoryList.as_view()),
+    path('category/<int:pk>/', PostList.as_view()),
 ]
