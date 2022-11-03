@@ -1,18 +1,26 @@
-from .models import User
+# from .models import User
+# from rest_framework import serializers
+
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         field = ['name', 'email']
+
 from rest_framework import serializers
+from dj_rest_auth.registration.serializers import RegisterSerializer
+from dj_rest_auth.serializers import UserDetailsSerializer
+from accounts.models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
+class CustomRegisterSerializer(RegisterSerializer):
+    name = serializers.CharField(max_length = 10)
 
-        user = User.objects.reg_user(
-            nickname=validated_data['nickname'],
-            password=validated_data['password'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            email=validated_data['email']
-        )
-        return user
+    def get_cleaned_data(self):
+        data = super().get_cleaned_data()
+        data['name'] = self.validated_data.get('name','')
 
-    class Meta:
-        model = User
-        fields = ['nickname','password','first_name','last_name','email']
+        return data
+
+class CustomDetailsSerializer(UserDetailsSerializer):
+    class Meta(UserDetailsSerializer.Meta):
+        fields = UserDetailsSerializer.Meta.fields + \
+            ('name',)
