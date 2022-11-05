@@ -6,4 +6,5 @@ app_name = "post"
 urlpatterns = [
     path('', PostList.as_view()),
     path('<int:pk>/', PostDetail.as_view()),
+    path('timeline/', TimeLine.as_view()),
 ]

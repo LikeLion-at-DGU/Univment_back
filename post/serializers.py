@@ -8,10 +8,11 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True, read_only=True, default=None)
+    timeline = False
 
     class Meta:
         model = Post
-        fields = ('id', 'user', 'title', 'body', 'images')
+        fields = ('id', 'user', 'title', 'body', 'images', 'timeline')
 
     def create(self, validated_data):
         images_data = self.context['request'].FILES
@@ -20,5 +21,3 @@ class PostSerializer(serializers.ModelSerializer):
             Image.objects.create(post=post, image=image)
         
         return post
-
-

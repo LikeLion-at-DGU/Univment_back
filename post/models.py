@@ -10,6 +10,8 @@ class Post(models.Model):
     user = models.ForeignKey(User, null = True, on_delete = models.CASCADE)
     title = models.CharField(max_length = 200)
     body = models.TextField()
+    
+    timeline = models.BooleanField(default=False)
 
 class Image(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, default=None, related_name = 'images')

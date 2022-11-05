@@ -10,3 +10,7 @@ class PostList(generics.ListCreateAPIView):
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+class TimeLine(generics.ListAPIView):
+    queryset = Post.objects.filter(timeline=True)
+    serializer_class = PostSerializer
