@@ -39,10 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 전화번호 관련
+    'phonenumber_field',
 
     'rest_framework',
     'post',
     'accounts',
+    'mypage',
 
     # 로그인/회원가입
     'rest_framework.authtoken',
