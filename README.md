@@ -9,8 +9,6 @@
     pip install django-allauth
     pip install djangorestframework
     pip install djangorestframework-simplejwt
-    pip install django-phonenumber-field
-    pip install phonenumbers
 
 ## API 정리
 ### 회원가입/로그인/로그아웃
