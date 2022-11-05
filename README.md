@@ -29,8 +29,19 @@
         "password":"비밀번호"
     }
 ### 로그아웃
-### 127.0.0.1:8000/auth/logout - POST
+### 127.0.0.1:8000/auth/logout/ - POST
     값 필요 X
+### 이름 바꾸기
+### 127.0.0.1:8000/auth/user/ - POST
+    {
+        "name":"바꿀이름"
+    }
+### 비밀번호 바꾸기
+### 127.0.0.1:8000/auth/password/change/ - POST
+    {
+        "new_password1":"새로운 비밀번호",
+        "new_password1":"새로운 비밀번호 확인"
+    }
 
 
 ### ProfileImage
