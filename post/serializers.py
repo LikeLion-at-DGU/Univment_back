@@ -13,8 +13,8 @@ class PostSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Post
-        fields = ('id', 'isDefault', 'generated_user', 'questions')
+        model = Category
+        fields = ('id', 'name','isDefault', 'generated_user', 'questions')
 
     def create(self, validated_data):
         category = Category.objects.create(**validated_data)
