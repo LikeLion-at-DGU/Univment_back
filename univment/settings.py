@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 전화번호 관련
-    'phonenumber_field',
+    # 'phonenumber_field',
 
     'rest_framework',
     'post',
