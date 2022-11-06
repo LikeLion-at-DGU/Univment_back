@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 전화번호 관련
-    'phonenumber_field',
+    # 'phonenumber_field',
 
     'rest_framework',
     'post',
@@ -55,9 +55,14 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'dj_rest_auth.registration',
-]
 
+    # CORS 관련 추가
+    'corsheaders',
+]
 MIDDLEWARE = [
+    # CORS 관련 추가
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -191,4 +196,10 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'TOKEN_USER_CLASS': 'accounts.User',
 }
+
+# CORS 관련 추가
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000'
+                        ,'http://localhost:3000']
+CORS_ALLOW_CREDENTIALS = True
+
 
