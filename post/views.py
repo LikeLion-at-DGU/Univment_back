@@ -53,3 +53,9 @@ class CategoryDestroy(generics.DestroyAPIView):
 class TimeLine(generics.ListAPIView):
     queryset = Post.objects.filter(timeline=True).order_by('event_date')
     serializer_class = PostSerializer
+
+    # 사용자가 작성한 글만 불러오게 하기
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
