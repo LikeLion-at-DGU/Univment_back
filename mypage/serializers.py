@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import Profile, Contacts
+from .models import *
 
 class ProfileImageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Profile
+        model = ProfileImage
         fields = ['id', 'profileimage']
 
 class NameCardProfileSerializer(serializers.ModelSerializer):

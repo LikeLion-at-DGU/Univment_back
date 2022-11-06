@@ -5,9 +5,14 @@ from accounts.models import User
 # from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
-class Profile(models.Model):
+class ProfileImage(models.Model):
     id = models.AutoField(primary_key = True)
     profileimage = models.ImageField(upload_to = 'profileimages/')
+    name = models.CharField(null = True, max_length = 100)
+
+class Profile(models.Model):
+    id = models.AutoField(primary_key = True)
+    # user = models.ForeignKey(User, null = True, on_delete = models.CASCADE)
     name = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE, null = True)
     birthday = models.CharField(max_length = 10)
     major = models.CharField(max_length = 20)
