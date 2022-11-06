@@ -51,5 +51,5 @@ class CategoryDestroy(generics.DestroyAPIView):
     queryset = Category.objects.all()
         
 class TimeLine(generics.ListAPIView):
-    queryset = Post.objects.filter(timeline=True).order_by('-event_date')
+    queryset = Post.objects.filter(timeline=True).order_by('event_date')
     serializer_class = PostSerializer
