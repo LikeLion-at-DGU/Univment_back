@@ -4,7 +4,7 @@ from .models import *
 class ProfileImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileImage
-        fields = ('id', 'user', 'profileimage')
+        fields = ('id', 'profileimage')
 
     def create(self, validated_data):
         profileimage = ProfileImage.objects.create(**validated_data)
@@ -13,10 +13,10 @@ class ProfileImageSerializer(serializers.ModelSerializer):
 class NameCardProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('id', 'user', 'birthday', 'major')
+        fields = ('id', 'birthday', 'major')
 
 class NameCardContactsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contacts
-        fields = '__all__'
+        fields = ('id', 'phonenumber', 'email', 'insta', 'github', 'blog')
         

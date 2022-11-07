@@ -8,12 +8,10 @@ from accounts.models import User
 class ProfileImage(models.Model):
     id = models.AutoField(primary_key = True)
     profileimage = models.ImageField(upload_to = 'profileimages/')
-    # name = models.CharField(null = True, max_length = 100)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
 
 class Profile(models.Model):
     id = models.AutoField(primary_key = True)
-    # user = models.ForeignKey(User, null = True, on_delete = models.CASCADE)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
     birthday = models.CharField(max_length = 10)
     major = models.CharField(max_length = 20)
