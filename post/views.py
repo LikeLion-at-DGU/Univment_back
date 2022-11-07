@@ -10,6 +10,7 @@ class PostCreate(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     lookup_field = 'id'
@@ -26,7 +27,6 @@ class CategoryList(generics.ListCreateAPIView):
         return queryset
 
 class CategoryDetail(generics.RetrieveDestroyAPIView):
-    # get_queryset : pk(카테고리 넘버)에 맞는 글들 추출
     queryset = Post.objects.all()
     lookup_field = 'category'
     serializer_class = PostSerializer
@@ -44,11 +44,6 @@ class CategoryDetail(generics.RetrieveDestroyAPIView):
         except Http404:
             pass
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-class CategoryDestroy(generics.DestroyAPIView):
-    serializer_class = CategorySerializer
-    lookup_field = 'id'
-    queryset = Category.objects.all()
         
 
 
