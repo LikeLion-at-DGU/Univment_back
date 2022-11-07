@@ -39,10 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 전화번호 관련
+    # 'phonenumber_field',
 
     'rest_framework',
     'post',
     'accounts',
+    'mypage',
 
     # 로그인/회원가입
     'rest_framework.authtoken',
@@ -52,9 +55,14 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'dj_rest_auth.registration',
-]
 
+    # CORS 관련 추가
+    'corsheaders',
+]
 MIDDLEWARE = [
+    # CORS 관련 추가
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -185,7 +193,13 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': False,
-    # 'BLACKLIST_AFTER_ROTATION': True,
+    'BLACKLIST_AFTER_ROTATION': True,
     'TOKEN_USER_CLASS': 'accounts.User',
 }
+
+# CORS 관련 추가
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000'
+                        ,'http://localhost:3000']
+CORS_ALLOW_CREDENTIALS = True
+
 

@@ -22,3 +22,4 @@ class Post(models.Model):
     image = models.ImageField(null = True)
     event_date = models.DateField(default=datetime.date.today)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name = 'posts', null = True)
+    timeline = models.BooleanField(default=False)
