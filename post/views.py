@@ -4,11 +4,13 @@ from rest_framework.response import Response
 from .models import Post, Category
 from .serializers import PostSerializer, CategorySerializer
 from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
 # Create your views here.
 
 class PostCreate(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
@@ -26,7 +28,6 @@ class CategoryList(generics.ListCreateAPIView):
         return queryset
 
 class CategoryDetail(generics.RetrieveDestroyAPIView):
-    # get_queryset : pk(카테고리 넘버)에 맞는 글들 추출
     queryset = Post.objects.all()
     lookup_field = 'category'
     serializer_class = PostSerializer
@@ -45,10 +46,15 @@ class CategoryDetail(generics.RetrieveDestroyAPIView):
             pass
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class CategoryDestroy(generics.DestroyAPIView):
-    serializer_class = CategorySerializer
-    lookup_field = 'id'
-    queryset = Category.objects.all()
+    def get_permissions(self):
+        if self.request.method in ['DELETE']:
+            category = Category.objects.all().get(id=self.kwargs['category'])
+
+            if category.isDefault:
+                self.permission_classes = [IsAdminUser,]
+
+        return super(CategoryDetail, self).get_permissions()
+                    
         
 class TimeLine(generics.ListAPIView):
     queryset = Post.objects.filter(timeline=True).order_by('event_date')
