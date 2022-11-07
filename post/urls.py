@@ -4,7 +4,7 @@ from .views import CategoryDetail, PostSerializer, PostCreate, CategoryDestroy
 
 app_name = "post"
 urlpatterns = [
-    path('<int:pk>/', PostDetail.as_view()),
+    # path('<int:pk>/', PostDetail.as_view()),
     path('timeline/', TimeLine.as_view()),
     path('', PostCreate.as_view()), #글 생성
     path('<int:id>/', PostDetail.as_view()), #글 세부사항 / 수정 / 삭제

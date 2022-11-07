@@ -1,4 +1,4 @@
-from .models import Profile, Contacts
+from .models import *
 from .serializers import ProfileImageSerializer, NameCardProfileSerializer, NameCardContactsSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -13,35 +13,65 @@ import re, json
 # 프로필 사진 관련
 # @permission_classes([IsAuthenticatedOrReadOnly])
 class ProfileImageCreate(generics.ListCreateAPIView):
-    queryset = Profile.objects.all()
+    queryset = ProfileImage.objects.all()
     serializer_class = ProfileImageSerializer
-    lookup_field = 'id'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
 
 # @permission_classes([IsAuthenticatedOrReadOnly])
 class ProfileImageDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Profile.objects.all()
+    queryset = ProfileImage.objects.all()
     serializer_class = ProfileImageSerializer
     lookup_field = 'id'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
 
 # 명함 프로필 정보 관련
 class NameCardProfile(generics.CreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = NameCardProfileSerializer
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
 class NameCardProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = NameCardProfileSerializer
     lookup_field = 'id'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
 
 # 명함 contacts 관련
 class NameCardContacts(generics.CreateAPIView):
     queryset = Contacts.objects.all()
     serializer_class = NameCardContactsSerializer
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
 class NameCardContactsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Contacts.objects.all()
     serializer_class = NameCardContactsSerializer
     lookup_field = 'id'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
 
 # 전화번호 관련
 def validate_phone(phonenumber):
