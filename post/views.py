@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import Post, Category
 from .serializers import PostSerializer, CategorySerializer
 from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
 # Create your views here.
 
 class PostCreate(generics.CreateAPIView):
@@ -44,6 +45,16 @@ class CategoryDetail(generics.RetrieveDestroyAPIView):
         except Http404:
             pass
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def get_permissions(self):
+        if self.request.method in ['DELETE']:
+            category = Category.objects.all().get(id=self.kwargs['category'])
+
+            if category.isDefault:
+                self.permission_classes = [IsAdminUser,]
+
+        return super(CategoryDetail, self).get_permissions()
+                    
         
 class TimeLine(generics.ListAPIView):
     queryset = Post.objects.filter(timeline=True).order_by('event_date')
