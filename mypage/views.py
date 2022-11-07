@@ -1,5 +1,5 @@
 from .models import *
-from .serializers import ProfileImageSerializer, NameCardProfileSerializer, NameCardContactsSerializer
+from .serializers import *
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.decorators import permission_classes
@@ -11,7 +11,6 @@ import re, json
 
 # Create your views here.
 # 프로필 사진 관련
-# @permission_classes([IsAuthenticatedOrReadOnly])
 class ProfileImageCreate(generics.ListCreateAPIView):
     queryset = ProfileImage.objects.all()
     serializer_class = ProfileImageSerializer
@@ -21,7 +20,6 @@ class ProfileImageCreate(generics.ListCreateAPIView):
         qs = qs.filter(user=self.request.user)
         return qs
 
-# @permission_classes([IsAuthenticatedOrReadOnly])
 class ProfileImageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProfileImage.objects.all()
     serializer_class = ProfileImageSerializer
@@ -33,7 +31,7 @@ class ProfileImageDetail(generics.RetrieveUpdateDestroyAPIView):
         return qs
 
 # 명함 프로필 정보 관련
-class NameCardProfile(generics.CreateAPIView):
+class NameCardProfile(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = NameCardProfileSerializer
 
@@ -54,7 +52,7 @@ class NameCardProfileDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 # 명함 contacts 관련
-class NameCardContacts(generics.CreateAPIView):
+class NameCardContacts(generics.ListCreateAPIView):
     queryset = Contacts.objects.all()
     serializer_class = NameCardContactsSerializer
 
@@ -98,6 +96,86 @@ class phonenumberView(View):
             return JsonResponse({'message': 'USER_ALREADY_EXISTS'}, status=409)
 
         User.objects.create(
-            phone    = phonenumber,
+            phone = phonenumber,
         )
         return JsonResponse({'message': 'SUCCESS'}, status=200)
+
+# 명함 clubs 관련
+class NameCardClubs(generics.ListCreateAPIView):
+    queryset = Clubs.objects.all()
+    serializer_class = NameCardClubsSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+class NameCardClubsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Clubs.objects.all()
+    serializer_class = NameCardClubsSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+# 명함 contests 관련
+class NameCardContests(generics.ListCreateAPIView):
+    queryset =Contests.objects.all()
+    serializer_class = NameCardContestsSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+class NameCardContestsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset =Contests.objects.all()
+    serializer_class = NameCardContestsSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+# 명함 projects 관련
+class NameCardProjects(generics.ListCreateAPIView):
+    queryset = Projects.objects.all()
+    serializer_class = NameCardProjectsSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+class NameCardProjectsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Projects.objects.all()
+    serializer_class = NameCardProjectsSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+# 명함 activities 관련
+class NameCardActivities(generics.ListCreateAPIView):
+    queryset = Activities.objects.all()
+    serializer_class = NameCardActivitiesSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
+
+class NameCardActivitiesDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Activities.objects.all()
+    serializer_class = NameCardActivitiesSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(user=self.request.user)
+        return qs
