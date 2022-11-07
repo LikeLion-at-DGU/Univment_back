@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import *
-from .views import CategoryDetail, PostSerializer, PostCreate, CategoryDestroy
+from .views import CategoryDetail, PostSerializer, PostCreate
 
 app_name = "post"
 urlpatterns = [
