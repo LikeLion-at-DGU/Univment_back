@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 from accounts.models import User
 # from django.core.validators import RegexValidator
@@ -14,7 +15,7 @@ class ProfileImage(models.Model):
 class Profile(models.Model):
     id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
-    birthday = models.CharField(max_length = 10)
+    birthday = models.DateField(default=datetime.date.today)
     major = models.CharField(max_length = 20)
 
 class Contacts(models.Model):
