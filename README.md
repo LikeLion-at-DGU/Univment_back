@@ -115,7 +115,7 @@
 ### 127.0.0.1:8000/mypage/namecardcontacts/ - POST
     {
         "user" : "해당 유저 id값",
-        "phonenumber" : xxx-xxxx-xxxx 형식으로 입력(띄어쓰기 포함 최대 13글자로 설정) - 필수값,
+        "phonenumber" : xxx-xxxx-xxxx 형식으로 입력('-' 포함 최대 13글자로 설정) - 필수값,
         "email" : "이메일 입력" - 필수값, 
         "insta" : "인스타 아이디 @xxxxx 입력" - 필수X,
         "github" : "깃허브 주소 입력" - 필수X,
@@ -151,7 +151,7 @@
 ### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - PUT
     {
         "user" : "해당 유저 id값",
-        "phonenumber" : xxx-xxxx-xxxx 형식으로 입력(띄어쓰기 포함 최대 13글자로 설정) - 필수값,
+        "phonenumber" : xxx-xxxx-xxxx 형식으로 입력('-' 포함 최대 13글자로 설정) - 필수값,
         "email" : "이메일 입력" - 필수값, 
         "insta" : "인스타 아이디 @xxxxx 입력" - 필수X,
         "github" : "깃허브 주소 입력" - 필수X,
