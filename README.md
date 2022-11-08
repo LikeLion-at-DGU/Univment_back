@@ -46,6 +46,7 @@
 ### ProfileImage
 ### 프로필 사진 등록하기
 ### 127.0.0.1:8000/mypage/ - POST
+
     {
         "profileimage" : 사진 첨부하면 됨
     }
@@ -66,3 +67,86 @@
 ### 127.0.0.1:8000/mypage/<int:id>/ - DELETE
 #### 결과
     아무것도 안 뜸
+
+### NameCard
+### NameCardProfile - 명함 기본 정보
+### 명함 기본 정보 입력, 보기
+### 127.0.0.1:8000/mypage/namecardprofile/ - POST
+    {
+        "user" : "해당 유저 id값",
+        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함),
+        "major" : "전공 입력"
+    }
+### 127.0.0.1:8000/mypage/namecardprofile/ - GET
+#### 결과
+    {
+        "id" : "해당 post id값",
+        "user" : "해당 유저 id값",
+        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함),
+        "major" : "전공 입력"
+    }
+
+### 명함 기본 정보 보기, 수정, 삭제하기
+### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - GET
+#### 결과
+    {
+        "id" : "해당 post id값",
+        "user" : "해당 유저 id값",
+        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함),
+        "major" : "전공 입력"
+    }
+### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - PUT
+    {
+        "user" : "해당 유저 id값",
+        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함),
+        "major" : "전공 입력"
+    }
+### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - DELETE
+그냥 사라지고 아무것도 안 뜸
+
+### NameCardContacts - 명함 contact 관련
+### 명함 contact 입력, 보기
+### 127.0.0.1:8000/mypage/namecardcontacts/ - POST
+    {
+        "user" : "해당 유저 id값",
+        "phonenumber" : xxx-xxxx-xxxx 형식으로 입력(띄어쓰기 포함 최대 13글자로 설정) - 필수값,
+        "email" : "이메일 입력" - 필수값, 
+        "insta" : "인스타 아이디 @xxxxx 입력" - 필수X,
+        "github" : "깃허브 주소 입력" - 필수X,
+        "blog" : "블로그 주소 입력" - 필수X
+    }
+### 127.0.0.1:8000/mypage/namecardcontacts/ - GET
+#### 결과
+    {
+        "id": "해당 post id값",
+        "user": "해당 유저 id값",
+        "phonenumber": "xxx-xxxx-xxxx",
+        "email": "이메일",
+        "insta": "",
+        "github": "",
+        "blog": ""
+    }
+    
+### 명함 contacts 보기, 수정, 삭제하기
+### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - GET
+#### 결과
+    {
+        "id": "해당 post id값",
+        "user": "해당 유저 id값",
+        "phonenumber": "xxx-xxxx-xxxx",
+        "email": "이메일",
+        "insta": "",
+        "github": "",
+        "blog": ""
+    }
+### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - PUT
+    {
+        "user" : "해당 유저 id값",
+        "phonenumber" : xxx-xxxx-xxxx 형식으로 입력(띄어쓰기 포함 최대 13글자로 설정) - 필수값,
+        "email" : "이메일 입력" - 필수값, 
+        "insta" : "인스타 아이디 @xxxxx 입력" - 필수X,
+        "github" : "깃허브 주소 입력" - 필수X,
+        "blog" : "블로그 주소 입력" - 필수X
+    }
+### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - DELETE
+그냥 사라지고 아무것도 안 뜸
