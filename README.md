@@ -371,3 +371,8 @@
 ### 삭제하기
 ### 127.0.0.1:8000/mypage/namecardactivities/<int:id>/ - DELETE
 그냥 사라지고 아무것도 안 뜸
+### 127.0.0.1:8000/post/
+### 127.0.0.1:8000/postwithlogin/
+### 127.0.0.1:8000/post/<int:id>/
+### 127.0.0.1:8000/post/category/
+### 127.0.0.1:8000/post/category/<int:category>/
