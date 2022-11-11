@@ -12,7 +12,7 @@
     pip install django-cors-headers
 
 ## API 정리
-### 회원가입/로그인/로그아웃
+## 회원가입/로그인/로그아웃
 ### 회원가입
 ### 127.0.0.1:8000/auth/registration/ - POST
     {
@@ -43,7 +43,7 @@
     }
 
 
-### ProfileImage
+## ProfileImage
 ### 프로필 사진 등록하기
 ### 127.0.0.1:8000/mypage/ - POST
     {
@@ -71,7 +71,7 @@
     아무것도 안 뜸
 
 
-### NameCard
+## NameCard
 ### 1. NameCardProfile - 명함 기본 정보
 ### 1-1. 명함 기본 정보 입력, 보기
 ### 입력
@@ -373,7 +373,7 @@
 그냥 사라지고 아무것도 안 뜸
 
 
-### POST
+## POST
 ### 127.0.0.1:8000/post/ - POST (새 글 등록)
     {
         "user": 2,
