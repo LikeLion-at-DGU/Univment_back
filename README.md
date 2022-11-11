@@ -375,6 +375,7 @@
 
 ## POST
 ### 127.0.0.1:8000/post/ - POST (새 글 등록)
+#### (포스트맨에서 테스트 할때 form-data로 해야 정상 작동 되었음)
     {
         "user": 2,
         "title": "title",
@@ -382,7 +383,7 @@
             "answer1",
             "answer2"
         ],
-        "image": "http://127.0.0.1:8000/media/pikachu.png",
+        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png",
         "event_date": "2022-10-04",
         "category": 3,
         "timeline": false
@@ -390,7 +391,8 @@
 ### 127.0.0.1:8000/post/<int:id>/ - GET (해당 글 세부 사항)
 ### 127.0.0.1:8000/post/<int:id>/ - PATCH (해당 글 수정, 매개변수는 POST와 동일)
 ### 127.0.0.1:8000/post/<int:id>/ - DELETE (해당 글 삭제)
-### 127.0.0.1:8000/postwithlogin/ - POST (로그인 후 글 등록)
+### 127.0.0.1:8000/postwithlogin/ - POST (로그인 후 글 등록) 
+#### (포스트맨에서 테스트 할때 form-data로 해야 정상 작동 되었음)
     {
         "user": 1,
         "title": "title",
@@ -398,7 +400,7 @@
             "dwqdwqeq",
             "dwqefds2"
         ],
-        "image": "http://127.0.0.1:8000/media/pikachu.png",
+        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png",
         "event_date": "2022-10-04",
         "category": 1,
         "timeline": true,
