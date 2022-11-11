@@ -62,14 +62,14 @@ class CategoryDetail(APIView):
             pass
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    #def get_permissions(self):
-    #   if self.request.method in ['DELETE']:
-    #        category = Category.objects.all().get(id=self.kwargs['category'])
+    def get_permissions(self):
+       if self.request.method in ['DELETE']:
+            category = Category.objects.all().get(id=self.kwargs['category'])
 
-    #        if category.isDefault:
-    #            self.permission_classes = [IsAdminUser,]
+            if category.isDefault:
+                self.permission_classes = [IsAdminUser,]
 
-    #    return super(CategoryDetail, self).get_permissions()
+            return super(CategoryDetail, self).get_permissions()
                     
         
 class TimeLine(generics.ListAPIView):
@@ -98,7 +98,7 @@ class PostWithLogin(APIView):
         data = {"user" : login_info.json()['user']['pk'],
                 "title" : request.data['title'],
                 "answers" : json.dumps(request.data['answers']),
-                #"image" : request.data['image'],
+                "image" : request.data['image'],
                 "event_date" : request.data['event_date'],
                 "category" : request.data['category']}
         header = {"Authorization" : "JWT " + access_token, "refresh_token" : refresh_token}
