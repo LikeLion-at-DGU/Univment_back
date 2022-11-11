@@ -371,6 +371,9 @@
 ### 삭제하기
 ### 127.0.0.1:8000/mypage/namecardactivities/<int:id>/ - DELETE
 그냥 사라지고 아무것도 안 뜸
+
+
+### POST
 ### 127.0.0.1:8000/post/ - POST (새 글 등록)
     {
         "user": 2,
