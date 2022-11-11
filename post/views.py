@@ -93,17 +93,23 @@ class PostWithLogin(APIView):
 
         access_token = login_info.json()['access_token']
         refresh_token = login_info.json()['refresh_token']
+
+        print(request.FILES['image'])
+
+        files = {
+            'image' : request.FILES['image']
+        }
      
         url = request.build_absolute_uri('/post/')
         data = {"user" : login_info.json()['user']['pk'],
                 "title" : request.data['title'],
                 "answers" : json.dumps(request.data['answers']),
-                "image" : request.data['image'],
                 "event_date" : request.data['event_date'],
-                "category" : request.data['category']}
+                "category" : request.data['category'],
+                "timeline" : request.data['timeline']}
         header = {"Authorization" : "JWT " + access_token, "refresh_token" : refresh_token}
 
-        post_info = requests.post(url, headers=header, data=data)
+        post_info = requests.post(url, headers=header, data=data, files=files)
         return HttpResponse(post_info)
         
         
