@@ -387,7 +387,7 @@
 ### 127.0.0.1:8000/post/<int:id>/ - GET (해당 글 세부 사항)
 ### 127.0.0.1:8000/post/<int:id>/ - PATCH (해당 글 수정, 매개변수는 POST와 동일)
 ### 127.0.0.1:8000/post/<int:id>/ - DELETE (해당 글 삭제)
-### 127.0.0.1:8000/postwithlogin/ - POST (로그인 후 글 증록)
+### 127.0.0.1:8000/postwithlogin/ - POST (로그인 후 글 등록)
     {
         "user": 1,
         "title": "title",
@@ -402,5 +402,7 @@
         "email": "minyoung_stat@dgu.ac.kr",
         "password": "example123"
     }
-### 127.0.0.1:8000/post/category/
-### 127.0.0.1:8000/post/category/<int:category>/
+### 127.0.0.1:8000/post/category/ - POST (새 카테고리 등록)
+### 127.0.0.1:8000/post/category/ - GET (기본 카테고리 + 유저 생성 카테고리 목록)
+### 127.0.0.1:8000/post/category/<int:category>/ - GET (해당 카테고리에 현재 유저가 등록한 글 목록)
+### 127.0.0.1:8000/post/category/<int:category>/ - DELETE (해당 카테고리 삭제)
