@@ -403,9 +403,16 @@
         "category": 1,
         "timeline": true,
         "email": "minyoung_stat@dgu.ac.kr",
-        "password": "example123"
+        "password": "example123",
+        "timeline": true
     }
 ### 127.0.0.1:8000/post/category/ - POST (새 카테고리 등록)
+    {
+        "name":"category2",
+        "isDefault":false,
+        "generated_user":1,
+        "questions":["question1", "question2", "question3"]
+    }
 ### 127.0.0.1:8000/post/category/ - GET (기본 카테고리 + 유저 생성 카테고리 목록)
 ### 127.0.0.1:8000/post/category/<int:category>/ - GET (해당 카테고리에 현재 유저가 등록한 글 목록)
 ### 127.0.0.1:8000/post/category/<int:category>/ - DELETE (해당 카테고리 삭제)
