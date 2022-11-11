@@ -371,8 +371,36 @@
 ### 삭제하기
 ### 127.0.0.1:8000/mypage/namecardactivities/<int:id>/ - DELETE
 그냥 사라지고 아무것도 안 뜸
-### 127.0.0.1:8000/post/
-### 127.0.0.1:8000/postwithlogin/
-### 127.0.0.1:8000/post/<int:id>/
+### 127.0.0.1:8000/post/ - POST (새 글 등록)
+    {
+        "user": 2,
+        "title": "title",
+        "answers": [
+            "answer1",
+            "answer2"
+        ],
+        "image": "http://127.0.0.1:8000/media/pikachu.png",
+        "event_date": "2022-10-04",
+        "category": 3,
+        "timeline": false
+    }
+### 127.0.0.1:8000/post/<int:id>/ - GET (해당 글 세부 사항)
+### 127.0.0.1:8000/post/<int:id>/ - PATCH (해당 글 수정, 매개변수는 POST와 동일)
+### 127.0.0.1:8000/post/<int:id>/ - DELETE (해당 글 삭제)
+### 127.0.0.1:8000/postwithlogin/ - POST (로그인 후 글 증록)
+    {
+        "user": 1,
+        "title": "title",
+        "answers": [
+            "dwqdwqeq",
+            "dwqefds2"
+        ],
+        "image": "http://127.0.0.1:8000/media/pikachu.png",
+        "event_date": "2022-10-04",
+        "category": 1,
+        "timeline": true,
+        "email": "minyoung_stat@dgu.ac.kr",
+        "password": "example123"
+    }
 ### 127.0.0.1:8000/post/category/
 ### 127.0.0.1:8000/post/category/<int:category>/
