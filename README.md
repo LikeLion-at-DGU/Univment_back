@@ -39,9 +39,9 @@
         "new_password1":"새로운 비밀번호 확인"
     }
 
-### ProfileImage
+## ProfileImage
 ### 프로필사진 수정하기
-### 127.0.0.1:8000/auth/user/ - GET
+### 127.0.0.1:8000/auth/user/ - PUT, PATCH
     {
         "image":"이미지"
     }
@@ -53,8 +53,10 @@
 ### 127.0.0.1:8000/mypage/namecardprofile/ - POST
     {
         "user" : "해당 유저 id값" - 필수,
-        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함) - 선택,
-        "major" : "전공 입력" - 선택
+        "myname" : "이름" - 필수,
+        "email" : "이메일" - 필수,
+        "major" : "전공 입력" - 선택,
+        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함) - 선택
     }
 ### 보기
 ### 127.0.0.1:8000/mypage/namecardprofile/ - GET
@@ -62,8 +64,10 @@
     {
         "id" : "해당 POST id값" - GET 할 때 뜨는 것,
         "user" : "해당 유저 id값",
-        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함),
-        "major" : "전공 입력"
+        "myname" : "이름",
+        "email" : "이메일",
+        "birthday" : YYYY-MM-DD 형식,
+        "major" : "전공"
     }
 
 ### 1-2. 명함 기본 정보 보기, 수정, 삭제하기
@@ -73,15 +77,20 @@
     {
         "id" : "해당 POST id값" - GET 할 때 뜨는 것,
         "user" : "해당 유저 id값",
-        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함),
-        "major" : "전공 입력"
+        "myname" : "이름",
+        "email" : "이메일",
+        "birthday" : YYYY-MM-DD 형식,
+        "major" : "전공"
     }
+    
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - PUT
+### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - PUT, PATCH
     {
         "user" : "해당 유저 id값" - 필수,
-        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함) - 선택,
-        "major" : "전공 입력" - 선택
+        "myname" : "이름" - 필수,
+        "email" : "이메일" - 필수,
+        "major" : "전공 입력" - 선택,
+        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함) - 선택
     }
 ### 삭제
 ### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - DELETE
@@ -94,7 +103,6 @@
     {
         "user" : "해당 유저 id값" - 필수,
         "phonenumber" : xxx-xxxx-xxxx 형식으로 입력('-' 포함 최대 13글자로 설정) - 필수,
-        "email" : "이메일 입력" - 필수, 
         "insta" : "인스타 아이디 @xxxxx 입력" - 선택,
         "github" : "깃허브 주소 입력" - 선택,
         "blog" : "블로그 주소 입력" - 선택
@@ -106,7 +114,6 @@
         "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "phonenumber": "xxx-xxxx-xxxx",
-        "email": "이메일",
         "insta": "",
         "github": "",
         "blog": ""
@@ -120,17 +127,15 @@
         "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "phonenumber": "xxx-xxxx-xxxx",
-        "email": "이메일",
         "insta": "",
         "github": "",
         "blog": ""
     }
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - PUT
+### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - PUT, PATCH
     {
         "user" : "해당 유저 id값" - 필수,
         "phonenumber" : xxx-xxxx-xxxx 형식으로 입력('-' 포함 최대 13글자로 설정) - 필수,
-        "email" : "이메일 입력" - 필수, 
         "insta" : "인스타 아이디 @xxxxx 입력" - 선택,
         "github" : "깃허브 주소 입력" - 선택,
         "blog" : "블로그 주소 입력" - 선택
