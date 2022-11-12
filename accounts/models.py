@@ -41,7 +41,7 @@ class User(AbstractBaseUser):
 
     name = models.CharField(max_length=10)
     email = models.EmailField(max_length=30, unique=True)
-    image = models.ImageField(default='profileimages/default.png')
+    image = models.ImageField(default='default.png')
 
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

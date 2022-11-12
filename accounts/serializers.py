@@ -13,7 +13,7 @@ from accounts.models import User
 
 class CustomRegisterSerializer(RegisterSerializer):
     name = serializers.CharField(max_length = 10)
-    image = serializers.ImageField(default='profileimages/default.png')
+    image = serializers.ImageField(default='default.png')
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
