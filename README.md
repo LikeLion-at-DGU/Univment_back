@@ -29,7 +29,9 @@
     }
 ### 로그아웃
 ### 127.0.0.1:8000/auth/logout/ - POST
-    값 필요 X
+    {
+        "refresh":"refresh_token"
+    }
 ### 이름 바꾸기
 ### 127.0.0.1:8000/auth/user/ - POST
     {
