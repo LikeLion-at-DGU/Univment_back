@@ -5,7 +5,7 @@ from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 # Create your models here.
 class UserManager(BaseUserManager):
 
-    def create_user(self, name, email, password, **extra_fields):
+    def create_user(self, name, email, password, image, **extra_fields):
         if not name:
             raise ValueError('Users must have an name')
 
@@ -15,16 +15,18 @@ class UserManager(BaseUserManager):
         user = self.model(
             name = name,
             email=email,
+            image=image,
             **extra_fields
         )
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, name=None, email=None, password=None, **extra_fields):
+    def create_superuser(self, name=None, email=None, password=None, image=None, **extra_fields):
         superuser = self.create_user(
             name = name,
             email=email,
+            image=image,
             password=password,
             **extra_fields
         )
@@ -39,6 +41,7 @@ class User(AbstractBaseUser):
 
     name = models.CharField(max_length=10)
     email = models.EmailField(max_length=30, unique=True)
+    image = models.ImageField(default='profileimages/당당아코.png')
 
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

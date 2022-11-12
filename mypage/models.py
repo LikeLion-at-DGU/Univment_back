@@ -15,7 +15,7 @@ class ProfileImage(models.Model):
 class Profile(models.Model):
     id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
-    birthday = models.DateField(default=datetime.date.today)
+    birthday = models.DateField(null=True, blank=True)
     major = models.CharField(max_length = 20)
 
 class Contacts(models.Model):

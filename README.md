@@ -32,11 +32,6 @@
     {
         "refresh":"refresh_token"
     }
-### 이름 바꾸기
-### 127.0.0.1:8000/auth/user/ - POST
-    {
-        "name":"바꿀이름"
-    }
 ### 비밀번호 바꾸기
 ### 127.0.0.1:8000/auth/password/change/ - POST
     {
@@ -46,29 +41,11 @@
 
 
 ### ProfileImage
-### 프로필 사진 등록하기
-### 127.0.0.1:8000/mypage/ - POST
+### 프로필사진 수정하기
+### 127.0.0.1:8000/auth/user/ - GET
     {
-        "profileimage" : 사진 첨부하면 됨
+        "image":"이미지"
     }
-### 프로필 사진 불러오기, 수정하기, 삭제하기
-### 불러오기
-### 127.0.0.1:8000/mypage/<int:id>/ - GET
-#### 결과
-    {
-        "id" : "해당 사진 id값",
-        "profileimage" : "해당 사진"
-    }
-### 수정하기
-### 127.0.0.1:8000/mypage/<int:id>/ - PUT(PATCH)
-    {
-        "profileimage" : 사진 첨부하면 됨
-    }
-### 삭제하기
-### 127.0.0.1:8000/mypage/<int:id>/ - DELETE
-#### 결과
-    아무것도 안 뜸
-
 
 ### NameCard
 ### 1. NameCardProfile - 명함 기본 정보
