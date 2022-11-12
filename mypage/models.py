@@ -15,14 +15,15 @@ class ProfileImage(models.Model):
 class Profile(models.Model):
     id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
-    birthday = models.DateField(null = True, blank = True)
+    myname = models.CharField(max_length = 20)
+    email = models.CharField(max_length = 30)
     major = models.CharField(max_length = 20, blank = True)
+    birthday = models.DateField(null = True, blank = True)
 
 class Contacts(models.Model):
     id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
     phonenumber = models.CharField(max_length = 13, unique=True)
-    email = models.CharField(max_length = 30)
     insta = models.CharField(max_length = 20, blank = True)
     github = models.CharField(max_length = 30, blank = True, null = True)
     blog = models.CharField(max_length = 40, blank = True, null = True)

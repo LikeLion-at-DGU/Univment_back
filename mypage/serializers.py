@@ -14,12 +14,12 @@ class ProfileImageSerializer(serializers.ModelSerializer):
 class NameCardProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('id', 'user', 'birthday', 'major')
+        fields = ('id', 'user', 'myname', 'email', 'major', 'birthday')
 
 class NameCardContactsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contacts
-        fields = ('id', 'user', 'phonenumber', 'email', 'insta', 'github', 'blog')
+        fields = ('id', 'user', 'phonenumber', 'insta', 'github', 'blog')
 
 class NameCardClubsSerializer(serializers.ModelSerializer):
     class Meta:
