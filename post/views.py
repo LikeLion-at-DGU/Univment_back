@@ -29,7 +29,7 @@ class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     def create(self, request, *args, **kwargs):
-        if ~self.request.user.is_staff:
+        if not self.request.user.is_staff:
             if self.queryset.filter(generated_user = self.request.user.id).count() >= 3:
                 return Response({'오류': '카테고리는 최대 3개까지만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
 
@@ -48,6 +48,11 @@ class CategoryList(generics.ListCreateAPIView):
         queryset1 = Category.objects.filter(isDefault = True)
         queryset2 = Category.objects.filter(generated_user = self.request.user)
         queryset = queryset1.union(queryset2)
+
+        if 'onlyusercontent' in self.request.data:
+            if self.request.data['onlyusercontent']:
+                queryset = queryset2
+
         return queryset
 
     def get_permissions(self):
@@ -82,7 +87,7 @@ class CategoryDetail(APIView):
     
     def patch(self, request, *args, **kwargs):
         return self.put(request, args, kwargs)
-        
+
     def put(self, request, *args, **kwargs):
         try:
             instance = Category.objects.all().get(id=self.kwargs['category'])
@@ -99,9 +104,6 @@ class CategoryDetail(APIView):
                 return Response(serializer.data)
         except Http404:
             return Response({'오류': '해당 카테고리가 존재하지 않습니다.'}, status=status.HTTP_404_NOT_FOUND)
-
-    def te():
-        pass
 
     def get_permissions(self):
         if self.request.method in ['DELETE']:
