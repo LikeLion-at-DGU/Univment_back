@@ -11,7 +11,10 @@ class Category(models.Model):
     color = models.CharField(max_length=20, null=True)
     isDefault = models.BooleanField(null = False, default=False)
     generated_user = models.ForeignKey(User, null = False, on_delete = models.CASCADE)
-    questions = models.JSONField(null = True)
+    question1 = models.TextField(max_length= 500)
+    question2 = models.TextField(max_length= 500)
+    question3 = models.TextField(max_length= 500)
+    question4 = models.TextField(max_length= 500)
     class Meta:
         unique_together = ["name", "generated_user"]
 
@@ -19,8 +22,11 @@ class Post(models.Model):
     id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     title = models.CharField(max_length = 100, null=False, default = '')
-    answers = models.JSONField(null = True)
     image = models.ImageField(null = True)
     event_date = models.DateField(default=datetime.date.today, null=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name = 'posts', null = True)
     timeline = models.BooleanField(default=False)
+    answer1 = models.TextField(max_length=500)
+    answer2 = models.TextField(max_length=500)
+    answer3 = models.TextField(max_length=500)
+    answer4 = models.TextField(max_length=500)

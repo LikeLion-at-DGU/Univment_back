@@ -143,6 +143,9 @@ class PostWithLogin(APIView):
                 'password': request.data['password']}
         login_info = requests.post(url, data=data)
 
+        if not 'access_token' in login_info.json():
+            return Response({'오류': '로그인 정보가 존재하지 않습니다.'}, status=status.HTTP_404_NOT_FOUND)
+
         access_token = login_info.json()['access_token']
         refresh_token = login_info.json()['refresh_token']
 
@@ -155,7 +158,10 @@ class PostWithLogin(APIView):
         url = request.build_absolute_uri('/post/')
         data = {"user": request.user.id,
                 "title": request.data['title'] if 'title' in request.data else '',
-                "answers": json.dumps(request.data['answers']) if 'answers' in request.data else [],
+                "answer1": request.data['answer1'] if 'answer1' in request.data else '',
+                "answer2": request.data['answer2'] if 'answer2' in request.data else '',
+                "answer3": request.data['answer3'] if 'answer3' in request.data else '',
+                "answer4": request.data['answer4'] if 'answer4' in request.data else '',
                 "event_date": request.data['event_date'] if 'event_data' in request.data else None,
                 "category": request.data['category'] if 'category' in request.data else None,
                 "timeline": request.data['timeline'] if 'timeline' in request.data else False}
