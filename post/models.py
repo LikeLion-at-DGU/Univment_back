@@ -17,6 +17,9 @@ class Category(models.Model):
     question4 = models.TextField(max_length= 500)
     class Meta:
         unique_together = ["name", "generated_user"]
+    
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     id = models.AutoField(primary_key = True)

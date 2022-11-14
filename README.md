@@ -36,7 +36,7 @@
 ### 127.0.0.1:8000/auth/password/change/ - POST
     {
         "new_password1":"새로운 비밀번호",
-        "new_password1":"새로운 비밀번호 확인"
+        "new_password2":"새로운 비밀번호 확인"
     }
 
 ## ProfileImage
