@@ -28,6 +28,21 @@ class CategoryList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated,]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    def create(self, request, *args, **kwargs):
+        if ~self.request.user.is_staff:
+            if self.queryset.filter(generated_user = self.request.user.id).count() >= 3:
+                return Response({'오류': '카테고리는 최대 3개까지만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+
+        serializer = self.get_serializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
+    def perform_create(self, serializer):
+        serializer.save()
 
     def get_queryset(self):
         queryset1 = Category.objects.filter(isDefault = True)
@@ -57,18 +72,46 @@ class CategoryDetail(APIView):
     def delete(self, request, *args, **kwargs):
         try:
             instance = Category.objects.all().get(id=self.kwargs['category'])
-            instance.delete()
+            if instance.generated_user == self.request.user:
+                instance.delete()
+            else:
+                return Http404
         except Http404:
             pass
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    def patch(self, request, *args, **kwargs):
+        return self.put(request, args, kwargs)
+        
+    def put(self, request, *args, **kwargs):
+        try:
+            instance = Category.objects.all().get(id=self.kwargs['category'])
+            #print("instance : " + instance.__str__())
+            serializer = CategorySerializer(instance, data=self.request.data)
+            #print("instance : " + serializer.__str__())
+            if instance.isDefault:
+                self.permission_classes = [IsAdminUser,]       
+            elif instance.generated_user != self.request.user:
+                return Response({'오류': '본인이 만든 카테고리만 수정 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+        except Http404:
+            return Response({'오류': '해당 카테고리가 존재하지 않습니다.'}, status=status.HTTP_404_NOT_FOUND)
+
+    def te():
+        pass
 
     def get_permissions(self):
-       if self.request.method in ['DELETE']:
+        if self.request.method in ['DELETE']:
             category = Category.objects.all().get(id=self.kwargs['category'])
 
             if category.isDefault:
                 self.permission_classes = [IsAdminUser,]
 
+            return super(CategoryDetail, self).get_permissions()
+        else:
             return super(CategoryDetail, self).get_permissions()
                     
         
