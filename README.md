@@ -39,9 +39,9 @@
         "new_password1":"새로운 비밀번호 확인"
     }
 
-### ProfileImage
+## ProfileImage
 ### 프로필사진 수정하기
-### 127.0.0.1:8000/auth/user/ - GET, PUT
+### 127.0.0.1:8000/auth/user/ - PUT, PATCH
     {
         "image":"이미지"
     }
@@ -53,8 +53,10 @@
 ### 127.0.0.1:8000/mypage/namecardprofile/ - POST
     {
         "user" : "해당 유저 id값" - 필수,
-        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함) - 선택,
-        "major" : "전공 입력" - 선택
+        "myname" : "이름" - 필수,
+        "email" : "이메일" - 필수,
+        "major" : "전공 입력" - 선택,
+        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함) - 선택
     }
 ### 보기
 ### 127.0.0.1:8000/mypage/namecardprofile/ - GET
@@ -62,8 +64,10 @@
     {
         "id" : "해당 POST id값" - GET 할 때 뜨는 것,
         "user" : "해당 유저 id값",
-        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함),
-        "major" : "전공 입력"
+        "myname" : "이름",
+        "email" : "이메일",
+        "birthday" : YYYY-MM-DD 형식,
+        "major" : "전공"
     }
 
 ### 1-2. 명함 기본 정보 보기, 수정, 삭제하기
@@ -73,15 +77,20 @@
     {
         "id" : "해당 POST id값" - GET 할 때 뜨는 것,
         "user" : "해당 유저 id값",
-        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함),
-        "major" : "전공 입력"
+        "myname" : "이름",
+        "email" : "이메일",
+        "birthday" : YYYY-MM-DD 형식,
+        "major" : "전공"
     }
+    
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - PUT
+### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - PUT, PATCH
     {
         "user" : "해당 유저 id값" - 필수,
-        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함) - 선택,
-        "major" : "전공 입력" - 선택
+        "myname" : "이름" - 필수,
+        "email" : "이메일" - 필수,
+        "major" : "전공 입력" - 선택,
+        "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함) - 선택
     }
 ### 삭제
 ### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - DELETE
@@ -94,7 +103,6 @@
     {
         "user" : "해당 유저 id값" - 필수,
         "phonenumber" : xxx-xxxx-xxxx 형식으로 입력('-' 포함 최대 13글자로 설정) - 필수,
-        "email" : "이메일 입력" - 필수, 
         "insta" : "인스타 아이디 @xxxxx 입력" - 선택,
         "github" : "깃허브 주소 입력" - 선택,
         "blog" : "블로그 주소 입력" - 선택
@@ -106,7 +114,6 @@
         "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "phonenumber": "xxx-xxxx-xxxx",
-        "email": "이메일",
         "insta": "",
         "github": "",
         "blog": ""
@@ -120,17 +127,15 @@
         "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "phonenumber": "xxx-xxxx-xxxx",
-        "email": "이메일",
         "insta": "",
         "github": "",
         "blog": ""
     }
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - PUT
+### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - PUT, PATCH
     {
         "user" : "해당 유저 id값" - 필수,
         "phonenumber" : xxx-xxxx-xxxx 형식으로 입력('-' 포함 최대 13글자로 설정) - 필수,
-        "email" : "이메일 입력" - 필수, 
         "insta" : "인스타 아이디 @xxxxx 입력" - 선택,
         "github" : "깃허브 주소 입력" - 선택,
         "blog" : "블로그 주소 입력" - 선택
@@ -352,44 +357,56 @@
 ### 127.0.0.1:8000/post/ - POST (새 글 등록)
 #### (포스트맨에서 테스트 할때 form-data로 해야 정상 작동 되었음)
     {
-        "user": 2,
-        "title": "title",
-        "answers": [
-            "answer1",
-            "answer2"
-        ],
-        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png",
-        "event_date": "2022-10-04",
-        "category": 3,
-        "timeline": false
+        "user": 2, # 필수
+        "title": "title", # 선택 (기본값 = 빈칸), 최대 100글자
+        "answer1":"ex1",
+        "answer2":"ex2",
+        "answer3":"ex3",
+        "answer4":"ex4",
+        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png", # 선택
+        "event_date": "2022-10-04", # 선택 (기본값 = 오늘 날짜)
+        "category": 3, # 필수
+        "timeline": false # 필수
     }
 ### 127.0.0.1:8000/post/<int:id>/ - GET (해당 글 세부 사항)
 ### 127.0.0.1:8000/post/<int:id>/ - PATCH (해당 글 수정, 매개변수는 POST와 동일)
 ### 127.0.0.1:8000/post/<int:id>/ - DELETE (해당 글 삭제)
-### 127.0.0.1:8000/postwithlogin/ - POST (로그인 후 글 등록) 
+### 127.0.0.1:8000/post/postwithlogin/ - POST (로그인 후 글 등록) 
 #### (포스트맨에서 테스트 할때 form-data로 해야 정상 작동 되었음)
     {
-        "user": 1,
-        "title": "title",
-        "answers": [
-            "dwqdwqeq",
-            "dwqefds2"
-        ],
-        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png",
-        "event_date": "2022-10-04",
-        "category": 1,
-        "timeline": true,
-        "email": "minyoung_stat@dgu.ac.kr",
-        "password": "example123",
-        "timeline": true
+        "title": "title", # 선택 (기본값 = 빈칸), 최대 100글자
+        "answer1":"ex1",
+        "answer2":"ex2",
+        "answer3":"ex3",
+        "answer4":"ex4",
+        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png", # 선택
+        "event_date": "2022-10-04", # 선택 (기본값 = 오늘 날짜)
+        "category": 1, # 필수
+        "timeline": true, # 필수
+        "email": "minyoung_stat@dgu.ac.kr", # 필수
+        "password": "example123", #필수
     }
 ### 127.0.0.1:8000/post/category/ - POST (새 카테고리 등록)
     {
-        "name":"category2",
+        "name":"category2", # 필수, 최대 100글자
+        "isDefault":false,
+        "color":"#223344 # 선택, 최대 20글자
+        "generated_user":1, # 필수
+        "questions":["question1", "question2", "question3"] # 선택
+    }
+### 127.0.0.1:8000/post/category/ - GET (기본 카테고리 + 유저 생성 카테고리 목록)
+#### onlyusercontent가 true이면 유저 생성 카테고리만 받아옵니다.
+    {
+        onlyusercontent : true # 선택, (기본값 = false)
+    }
+### 127.0.0.1:8000/post/category/<int:category>/ - GET (해당 카테고리에 현재 유저가 등록한 글 목록)
+### 127.0.0.1:8000/post/category/<int:category>/ - DELETE (해당 카테고리 삭제)
+### 127.0.0.1:8000/post/category/<int:category>/ - PUT, PATCH (해당 카테고리 수정)
+#### 부분만 수정하는 법을 못찾아서 일단 전체 매개변수를 써야할 것 같습니다..
+    {
+        "name":"category2_update",
         "isDefault":false,
         "generated_user":1,
         "questions":["question1", "question2", "question3"]
     }
-### 127.0.0.1:8000/post/category/ - GET (기본 카테고리 + 유저 생성 카테고리 목록)
-### 127.0.0.1:8000/post/category/<int:category>/ - GET (해당 카테고리에 현재 유저가 등록한 글 목록)
-### 127.0.0.1:8000/post/category/<int:category>/ - DELETE (해당 카테고리 삭제)
+
