@@ -1,6 +1,7 @@
 from .models import *
 from .serializers import *
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.decorators import permission_classes
 from django.views import View
@@ -23,7 +24,7 @@ class ProfileImageCreate(generics.ListCreateAPIView):
 class ProfileImageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProfileImage.objects.all()
     serializer_class = ProfileImageSerializer
-    lookup_field = 'id'
+    lookup_field = 'user_id'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -35,6 +36,19 @@ class NameCardProfile(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = NameCardProfileSerializer
 
+    def create(self, request, *args, **kwargs):
+        if not self.request.user.is_staff:
+            if self.queryset.filter(user=self.request.user.id).count() >= 1:
+                return Response({'오류': '명함 정보는 1인당 1개만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = self.get_serializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(user=self.request.user)
@@ -43,7 +57,7 @@ class NameCardProfile(generics.ListCreateAPIView):
 class NameCardProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = NameCardProfileSerializer
-    lookup_field = 'id'
+    lookup_field = 'user_id'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -64,7 +78,7 @@ class NameCardContacts(generics.ListCreateAPIView):
 class NameCardContactsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Contacts.objects.all()
     serializer_class = NameCardContactsSerializer
-    lookup_field = 'id'
+    lookup_field = 'user_id'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -113,7 +127,7 @@ class NameCardClubs(generics.ListCreateAPIView):
 class NameCardClubsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Clubs.objects.all()
     serializer_class = NameCardClubsSerializer
-    lookup_field = 'id'
+    lookup_field = 'user_id'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -133,7 +147,7 @@ class NameCardContests(generics.ListCreateAPIView):
 class NameCardContestsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset =Contests.objects.all()
     serializer_class = NameCardContestsSerializer
-    lookup_field = 'id'
+    lookup_field = 'user_id'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -153,7 +167,7 @@ class NameCardProjects(generics.ListCreateAPIView):
 class NameCardProjectsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Projects.objects.all()
     serializer_class = NameCardProjectsSerializer
-    lookup_field = 'id'
+    lookup_field = 'user_id'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -173,7 +187,7 @@ class NameCardActivities(generics.ListCreateAPIView):
 class NameCardActivitiesDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Activities.objects.all()
     serializer_class = NameCardActivitiesSerializer
-    lookup_field = 'id'
+    lookup_field = 'user_id'
 
     def get_queryset(self):
         qs = super().get_queryset()
