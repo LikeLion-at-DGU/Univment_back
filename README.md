@@ -62,7 +62,6 @@
 ### 127.0.0.1:8000/mypage/namecardprofile/ - GET
 #### 결과
     {
-        "id" : "해당 POST id값" - GET 할 때 뜨는 것,
         "user" : "해당 유저 id값",
         "myname" : "이름",
         "email" : "이메일",
@@ -72,10 +71,9 @@
 
 ### 1-2. 명함 기본 정보 보기, 수정, 삭제하기
 ### 보기
-### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - GET
+### 127.0.0.1:8000/mypage/namecardprofile/<int:user_id>/ - GET
 #### 결과
     {
-        "id" : "해당 POST id값" - GET 할 때 뜨는 것,
         "user" : "해당 유저 id값",
         "myname" : "이름",
         "email" : "이메일",
@@ -84,7 +82,7 @@
     }
     
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - PUT, PATCH
+### 127.0.0.1:8000/mypage/namecardprofile/<int:user_id>/ - PUT, PATCH
     {
         "user" : "해당 유저 id값" - 필수,
         "myname" : "이름" - 필수,
@@ -93,7 +91,7 @@
         "birthday" : 날짜 선택 or YYYY-MM-DD 형식으로 입력(POSTMAN에서 이렇게 해야 함) - 선택
     }
 ### 삭제
-### 127.0.0.1:8000/mypage/namecardprofile/<int:id>/ - DELETE
+### 127.0.0.1:8000/mypage/namecardprofile/<int:user_id>/ - DELETE
 그냥 사라지고 아무것도 안 뜸
 
 ### 2. NameCardContacts - 명함 contact 관련
@@ -111,7 +109,6 @@
 ### 127.0.0.1:8000/mypage/namecardcontacts/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "phonenumber": "xxx-xxxx-xxxx",
         "insta": "",
@@ -121,10 +118,9 @@
     
 ### 2-2. 명함 contacts 보기, 수정, 삭제하기
 ### 보기
-### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - GET
+### 127.0.0.1:8000/mypage/namecardcontacts/<int:user_id>/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "phonenumber": "xxx-xxxx-xxxx",
         "insta": "",
@@ -132,7 +128,7 @@
         "blog": ""
     }
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - PUT, PATCH
+### 127.0.0.1:8000/mypage/namecardcontacts/<int:user_id>/ - PUT, PATCH
     {
         "user" : "해당 유저 id값" - 필수,
         "phonenumber" : xxx-xxxx-xxxx 형식으로 입력('-' 포함 최대 13글자로 설정) - 필수,
@@ -141,7 +137,7 @@
         "blog" : "블로그 주소 입력" - 선택
     }
 ### 삭제하기
-### 127.0.0.1:8000/mypage/namecardcontacts/<int:id>/ - DELETE
+### 127.0.0.1:8000/mypage/namecardcontacts/<int:user_id>/ - DELETE
 그냥 사라지고 아무것도 안 뜸
 
 ### 3. NameCardClubs - 명함 club 관련
@@ -160,7 +156,6 @@
 ### 127.0.0.1:8000/mypage/namecardclubs/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "club1": "동아리명",
         "club2": "",
@@ -171,10 +166,9 @@
     
 ### 3-2. 명함 club 보기, 수정, 삭제하기
 ### 보기
-### 127.0.0.1:8000/mypage/namecardclubs/<int:id>/ - GET
+### 127.0.0.1:8000/mypage/namecardclubs/<int:user_id>/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "club1": "동아리명",
         "club2": "",
@@ -183,7 +177,7 @@
         "club5": ""
     }
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardclubs/<int:id>/ - PUT
+### 127.0.0.1:8000/mypage/namecardclubs/<int:user_id>/ - PUT
     {
         "user": "해당 유저 id값" - 필수,
         "club1": "동아리명" - 일단은 5개 모두 필수값으로 두진 않음(일단은 모두 선택으로 둠),
@@ -193,7 +187,7 @@
         "club5": ""
     }
 ### 삭제하기
-### 127.0.0.1:8000/mypage/namecardclubs/<int:id>/ - DELETE
+### 127.0.0.1:8000/mypage/namecardclubs/<int:user_id>/ - DELETE
 그냥 사라지고 아무것도 안 뜸
 
 ### 4. NameCardContests - 명함 contest 관련
@@ -212,7 +206,6 @@
 ### 127.0.0.1:8000/mypage/namecardcontests/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "contest1": "대회명",
         "contest2": "",
@@ -223,10 +216,9 @@
     
 ### 4-2. 명함 contest 보기, 수정, 삭제하기
 ### 보기
-### 127.0.0.1:8000/mypage/namecardcontests/<int:id>/ - GET
+### 127.0.0.1:8000/mypage/namecardcontests/<int:user_id>/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "contest1": "대회명",
         "contest2": "",
@@ -235,7 +227,7 @@
         "contest5": ""
     }
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardcontests/<int:id>/ - PUT
+### 127.0.0.1:8000/mypage/namecardcontests/<int:user_id>/ - PUT
     {
         "user": "해당 유저 id값" - 필수,
         "contest1": "대회명 + 수상실적(맘대로)" - 일단은 5개 모두 필수값으로 두진 않음(일단은 모두 선택으로 둠),
@@ -245,7 +237,7 @@
         "contest5": ""
     }
 ### 삭제하기
-### 127.0.0.1:8000/mypage/namecardcontests/<int:id>/ - DELETE
+### 127.0.0.1:8000/mypage/namecardcontests/<int:user_id>/ - DELETE
 그냥 사라지고 아무것도 안 뜸
 
 ### 5. NameCardProjects - 명함 project 관련
@@ -264,7 +256,6 @@
 ### 127.0.0.1:8000/mypage/namecardprojects/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "project1": "프로젝트명",
         "project2": "",
@@ -275,10 +266,9 @@
     
 ### 5-2. 명함 project 보기, 수정, 삭제하기
 ### 보기
-### 127.0.0.1:8000/mypage/namecardprojects/<int:id>/ - GET
+### 127.0.0.1:8000/mypage/namecardprojects/<int:user_id>/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "project1": "프로젝트명",
         "project2": "",
@@ -287,7 +277,7 @@
         "project5": ""
     }
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardprojects/<int:id>/ - PUT
+### 127.0.0.1:8000/mypage/namecardprojects/<int:user_id>/ - PUT
     {
         "user": "해당 유저 id값" - 필수,
         "project1": "대회명 + 수상실적(맘대로)" - 일단은 5개 모두 필수값으로 두진 않음(일단은 모두 선택으로 둠),
@@ -297,7 +287,7 @@
         "project5": ""
     }
 ### 삭제하기
-### 127.0.0.1:8000/mypage/namecardprojects/<int:id>/ - DELETE
+### 127.0.0.1:8000/mypage/namecardprojects/<int:user_id>/ - DELETE
 그냥 사라지고 아무것도 안 뜸
 
 ### 6. NameCardActivities - 명함 activity 관련
@@ -316,7 +306,6 @@
 ### 127.0.0.1:8000/mypage/namecardactivities/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "activity1": "대외활동명",
         "activity2": "",
@@ -327,10 +316,9 @@
     
 ### 6-2. 명함 activity 보기, 수정, 삭제하기
 ### 보기
-### 127.0.0.1:8000/mypage/namecardactivities/<int:id>/ - GET
+### 127.0.0.1:8000/mypage/namecardactivities/<int:user_id>/ - GET
 #### 결과
     {
-        "id": "해당 POST id값" - GET 할 때 뜨는 것,
         "user": "해당 유저 id값",
         "activity1": "대외활동명",
         "activity2": "",
@@ -339,7 +327,7 @@
         "activity5": ""
     }
 ### 수정하기
-### 127.0.0.1:8000/mypage/namecardactivities/<int:id>/ - PUT
+### 127.0.0.1:8000/mypage/namecardactivities/<int:user_id>/ - PUT
     {
         "user": "해당 유저 id값" - 필수,
         "activity1": "대외활동명" - 일단은 5개 모두 필수값으로 두진 않음(일단은 모두 선택으로 둠),
@@ -349,7 +337,7 @@
         "activity5": ""
     }
 ### 삭제하기
-### 127.0.0.1:8000/mypage/namecardactivities/<int:id>/ - DELETE
+### 127.0.0.1:8000/mypage/namecardactivities/<int:uesr_id>/ - DELETE
 그냥 사라지고 아무것도 안 뜸
 
 

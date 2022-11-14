@@ -13,7 +13,7 @@ class ProfileImage(models.Model):
 
 # NameCard(명함)에 들어갈 정보
 class Profile(models.Model):
-    id = models.AutoField(primary_key = True)
+    # id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
     myname = models.CharField(max_length = 20)
     email = models.CharField(max_length = 30)
@@ -21,15 +21,16 @@ class Profile(models.Model):
     birthday = models.DateField(null = True, blank = True)
 
 class Contacts(models.Model):
-    id = models.AutoField(primary_key = True)
+    # id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
+    # myname = models.ForeignKey(Profile, on_delete = models.CASCADE)
     phonenumber = models.CharField(max_length = 13, unique=True)
     insta = models.CharField(max_length = 20, blank = True)
     github = models.CharField(max_length = 30, blank = True, null = True)
     blog = models.CharField(max_length = 40, blank = True, null = True)
 
 class Clubs(models.Model):
-    id = models.AutoField(primary_key = True)
+    # id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
     club1 = models.CharField(max_length = 23, null = True, blank = True)
     club2 = models.CharField(max_length = 23, null = True, blank = True)
@@ -38,7 +39,7 @@ class Clubs(models.Model):
     club5 = models.CharField(max_length = 23, null = True, blank = True)
 
 class Contests(models.Model):
-    id = models.AutoField(primary_key = True)
+    # id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
     contest1 = models.CharField(max_length = 23, null = True, blank = True)
     contest2 = models.CharField(max_length = 23, null = True, blank = True)
@@ -47,7 +48,7 @@ class Contests(models.Model):
     contest5 = models.CharField(max_length = 23, null = True, blank = True)
 
 class Projects(models.Model):
-    id = models.AutoField(primary_key = True)
+    # id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
     project1 = models.CharField(max_length = 23, null = True, blank = True)
     project2 = models.CharField(max_length = 23, null = True, blank = True)
@@ -56,7 +57,7 @@ class Projects(models.Model):
     project5 = models.CharField(max_length = 23, null = True, blank = True)
 
 class Activities(models.Model):
-    id = models.AutoField(primary_key = True)
+    # id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
     activity1 = models.CharField(max_length = 23, null = True, blank = True)
     activity2 = models.CharField(max_length = 23, null = True, blank = True)
