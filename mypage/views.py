@@ -70,6 +70,19 @@ class NameCardContacts(generics.ListCreateAPIView):
     queryset = Contacts.objects.all()
     serializer_class = NameCardContactsSerializer
 
+    def create(self, request, *args, **kwargs):
+        if not self.request.user.is_staff:
+            if self.queryset.filter(user=self.request.user.id).count() >= 1:
+                return Response({'오류': '명함 정보는 1인당 1개만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = self.get_serializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(user=self.request.user)
@@ -119,6 +132,19 @@ class NameCardClubs(generics.ListCreateAPIView):
     queryset = Clubs.objects.all()
     serializer_class = NameCardClubsSerializer
 
+    def create(self, request, *args, **kwargs):
+        if not self.request.user.is_staff:
+            if self.queryset.filter(user=self.request.user.id).count() >= 1:
+                return Response({'오류': '명함 정보는 1인당 1개만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = self.get_serializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(user=self.request.user)
@@ -138,6 +164,19 @@ class NameCardClubsDetail(generics.RetrieveUpdateDestroyAPIView):
 class NameCardContests(generics.ListCreateAPIView):
     queryset =Contests.objects.all()
     serializer_class = NameCardContestsSerializer
+
+    def create(self, request, *args, **kwargs):
+        if not self.request.user.is_staff:
+            if self.queryset.filter(user=self.request.user.id).count() >= 1:
+                return Response({'오류': '명함 정보는 1인당 1개만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = self.get_serializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -159,6 +198,19 @@ class NameCardProjects(generics.ListCreateAPIView):
     queryset = Projects.objects.all()
     serializer_class = NameCardProjectsSerializer
 
+    def create(self, request, *args, **kwargs):
+        if not self.request.user.is_staff:
+            if self.queryset.filter(user=self.request.user.id).count() >= 1:
+                return Response({'오류': '명함 정보는 1인당 1개만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = self.get_serializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(user=self.request.user)
@@ -169,6 +221,19 @@ class NameCardProjectsDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NameCardProjectsSerializer
     lookup_field = 'user_id'
 
+    def create(self, request, *args, **kwargs):
+        if not self.request.user.is_staff:
+            if self.queryset.filter(user=self.request.user.id).count() >= 1:
+                return Response({'오류': '명함 정보는 1인당 1개만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = self.get_serializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(user=self.request.user)
@@ -178,6 +243,19 @@ class NameCardProjectsDetail(generics.RetrieveUpdateDestroyAPIView):
 class NameCardActivities(generics.ListCreateAPIView):
     queryset = Activities.objects.all()
     serializer_class = NameCardActivitiesSerializer
+
+    def create(self, request, *args, **kwargs):
+        if not self.request.user.is_staff:
+            if self.queryset.filter(user=self.request.user.id).count() >= 1:
+                return Response({'오류': '명함 정보는 1인당 1개만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = self.get_serializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
     def get_queryset(self):
         qs = super().get_queryset()
