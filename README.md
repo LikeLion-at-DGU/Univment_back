@@ -398,3 +398,12 @@
 ### 127.0.0.1:8000/post/category/ - GET (기본 카테고리 + 유저 생성 카테고리 목록)
 ### 127.0.0.1:8000/post/category/<int:category>/ - GET (해당 카테고리에 현재 유저가 등록한 글 목록)
 ### 127.0.0.1:8000/post/category/<int:category>/ - DELETE (해당 카테고리 삭제)
+### 127.0.0.1:8000/post/category/<int:category>/ - PUT, PATCH (해당 카테고리 수정)
+#### 부분만 수정하는 법을 못찾아서 일단 전체 매개변수를 써야할 것 같습니다..
+    {
+        "name":"category2_update",
+        "isDefault":false,
+        "generated_user":1,
+        "questions":["question1", "question2", "question3"]
+    }
+
