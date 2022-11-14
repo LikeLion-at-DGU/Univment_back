@@ -374,7 +374,6 @@
 ### 127.0.0.1:8000/postwithlogin/ - POST (로그인 후 글 등록) 
 #### (포스트맨에서 테스트 할때 form-data로 해야 정상 작동 되었음)
     {
-        "user": 1, # 필수
         "title": "title", # 선택 (기본값 = 빈칸), 최대 100글자
         "answers": [ # 선택
             "dwqdwqeq",
