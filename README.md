@@ -41,9 +41,16 @@
 
 ## ProfileImage
 ### 프로필사진 수정하기
-### 127.0.0.1:8000/auth/user/ - PUT, PATCH, GET
+### 127.0.0.1:8000/auth/user/ - PUT, PATCH
     {
         "image":"이미지"
+    }
+### 프로필사진 보기
+### 127.0.0.1:8000/auth/user/ - GET
+    {
+        "pk": user_id,
+        "email": "email",
+        "image": "이미지"
     }
 
 ## NameCard
