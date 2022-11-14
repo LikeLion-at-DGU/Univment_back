@@ -359,10 +359,10 @@
     {
         "user": 2, # 필수
         "title": "title", # 선택 (기본값 = 빈칸), 최대 100글자
-        "answers": [ # 선택
-            "answer1",
-            "answer2"
-        ],
+        "answer1":"ex1",
+        "answer2":"ex2",
+        "answer3":"ex3",
+        "answer4":"ex4",
         "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png", # 선택
         "event_date": "2022-10-04", # 선택 (기본값 = 오늘 날짜)
         "category": 3, # 필수
@@ -375,10 +375,10 @@
 #### (포스트맨에서 테스트 할때 form-data로 해야 정상 작동 되었음)
     {
         "title": "title", # 선택 (기본값 = 빈칸), 최대 100글자
-        "answers": [ # 선택
-            "dwqdwqeq",
-            "dwqefds2"
-        ],
+        "answer1":"ex1",
+        "answer2":"ex2",
+        "answer3":"ex3",
+        "answer4":"ex4",
         "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png", # 선택
         "event_date": "2022-10-04", # 선택 (기본값 = 오늘 날짜)
         "category": 1, # 필수
