@@ -357,16 +357,16 @@
 ### 127.0.0.1:8000/post/ - POST (새 글 등록)
 #### (포스트맨에서 테스트 할때 form-data로 해야 정상 작동 되었음)
     {
-        "user": 2,
-        "title": "title",
-        "answers": [
+        "user": 2, # 필수
+        "title": "title", # 선택 (기본값 = 빈칸), 최대 100글자
+        "answers": [ # 선택
             "answer1",
             "answer2"
         ],
-        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png",
-        "event_date": "2022-10-04",
-        "category": 3,
-        "timeline": false
+        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png", # 선택
+        "event_date": "2022-10-04", # 선택 (기본값 = 오늘 날짜)
+        "category": 3, # 필수
+        "timeline": false # 필수
     }
 ### 127.0.0.1:8000/post/<int:id>/ - GET (해당 글 세부 사항)
 ### 127.0.0.1:8000/post/<int:id>/ - PATCH (해당 글 수정, 매개변수는 POST와 동일)
@@ -374,28 +374,32 @@
 ### 127.0.0.1:8000/postwithlogin/ - POST (로그인 후 글 등록) 
 #### (포스트맨에서 테스트 할때 form-data로 해야 정상 작동 되었음)
     {
-        "user": 1,
-        "title": "title",
-        "answers": [
+        "user": 1, # 필수
+        "title": "title", # 선택 (기본값 = 빈칸), 최대 100글자
+        "answers": [ # 선택
             "dwqdwqeq",
             "dwqefds2"
         ],
-        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png",
-        "event_date": "2022-10-04",
-        "category": 1,
-        "timeline": true,
-        "email": "minyoung_stat@dgu.ac.kr",
-        "password": "example123",
-        "timeline": true
+        "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png", # 선택
+        "event_date": "2022-10-04", # 선택 (기본값 = 오늘 날짜)
+        "category": 1, # 필수
+        "timeline": true, # 필수
+        "email": "minyoung_stat@dgu.ac.kr", # 필수
+        "password": "example123", #필수
     }
 ### 127.0.0.1:8000/post/category/ - POST (새 카테고리 등록)
     {
-        "name":"category2",
+        "name":"category2", # 필수, 최대 100글자
         "isDefault":false,
-        "generated_user":1,
-        "questions":["question1", "question2", "question3"]
+        "color":"#223344 # 선택, 최대 20글자
+        "generated_user":1, # 필수
+        "questions":["question1", "question2", "question3"] # 선택
     }
 ### 127.0.0.1:8000/post/category/ - GET (기본 카테고리 + 유저 생성 카테고리 목록)
+#### onlyusercontent가 true이면 유저 생성 카테고리만 받아옵니다.
+    {
+        onlyusercontent : true # 선택, (기본값 = false)
+    }
 ### 127.0.0.1:8000/post/category/<int:category>/ - GET (해당 카테고리에 현재 유저가 등록한 글 목록)
 ### 127.0.0.1:8000/post/category/<int:category>/ - DELETE (해당 카테고리 삭제)
 ### 127.0.0.1:8000/post/category/<int:category>/ - PUT, PATCH (해당 카테고리 수정)
