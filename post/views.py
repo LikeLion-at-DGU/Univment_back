@@ -12,6 +12,7 @@ import json
 from django.core import serializers
 # Create your views here.
 
+
 class PostCreate(generics.CreateAPIView):
     permission_classes = []
     queryset = Post.objects.all()
@@ -19,18 +20,20 @@ class PostCreate(generics.CreateAPIView):
 
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
     queryset = Post.objects.all()
     lookup_field = 'id'
     serializer_class = PostSerializer
 
+
 class CategoryList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
     def create(self, request, *args, **kwargs):
         if not self.request.user.is_staff:
-            if self.queryset.filter(generated_user = self.request.user.id).count() >= 3:
+            if self.queryset.filter(generated_user=self.request.user.id).count() >= 3:
                 return Response({'오류': '카테고리는 최대 3개까지만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
 
         serializer = self.get_serializer(data=self.request.data)
@@ -45,8 +48,8 @@ class CategoryList(generics.ListCreateAPIView):
         serializer.save()
 
     def get_queryset(self):
-        queryset1 = Category.objects.filter(isDefault = True)
-        queryset2 = Category.objects.filter(generated_user = self.request.user)
+        queryset1 = Category.objects.filter(isDefault=True)
+        queryset2 = Category.objects.filter(generated_user=self.request.user)
         queryset = queryset1.union(queryset2)
 
         if 'onlyusercontent' in self.request.data:
@@ -61,17 +64,19 @@ class CategoryList(generics.ListCreateAPIView):
             isDefault = self.request.data['isDefault']
 
             if bool(isDefault):
-                self.permission_classes = [IsAdminUser,]
+                self.permission_classes = [IsAdminUser, ]
 
         return super(CategoryList, self).get_permissions()
 
+
 class CategoryDetail(APIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
     lookup_field = 'category'
     serializer_class = PostSerializer
 
     def get(self, *args, **kwargs):
-        data = serializers.serialize('json', Post.objects.all().filter(user=self.request.user.id).filter(category=self.kwargs['category']))
+        data = serializers.serialize('json', Post.objects.all().filter(
+            user=self.request.user.id).filter(category=self.kwargs['category']))
         return HttpResponse(data)
 
     def delete(self, request, *args, **kwargs):
@@ -84,7 +89,7 @@ class CategoryDetail(APIView):
         except Http404:
             pass
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
     def patch(self, request, *args, **kwargs):
         return self.put(request, args, kwargs)
 
@@ -95,7 +100,7 @@ class CategoryDetail(APIView):
             serializer = CategorySerializer(instance, data=self.request.data)
             #print("instance : " + serializer.__str__())
             if instance.isDefault:
-                self.permission_classes = [IsAdminUser,]       
+                self.permission_classes = [IsAdminUser, ]
             elif instance.generated_user != self.request.user:
                 return Response({'오류': '본인이 만든 카테고리만 수정 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
 
@@ -110,15 +115,15 @@ class CategoryDetail(APIView):
             category = Category.objects.all().get(id=self.kwargs['category'])
 
             if category.isDefault:
-                self.permission_classes = [IsAdminUser,]
+                self.permission_classes = [IsAdminUser, ]
 
             return super(CategoryDetail, self).get_permissions()
         else:
             return super(CategoryDetail, self).get_permissions()
-                    
-        
+
+
 class TimeLine(generics.ListAPIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
     queryset = Post.objects.filter(timeline=True).order_by('event_date')
     serializer_class = PostSerializer
 
@@ -128,35 +133,34 @@ class TimeLine(generics.ListAPIView):
         qs = qs.filter(user=self.request.user)
         return qs
 
+
 class PostWithLogin(APIView):
     permission_classes = []
 
     def post(self, request, *args, **kwargs):
         url = request.build_absolute_uri('/auth/') + 'login/'
-        data = {'email' : request.data['email'], 'password' : request.data['password']}
+        data = {'email': request.data['email'],
+                'password': request.data['password']}
         login_info = requests.post(url, data=data)
 
         access_token = login_info.json()['access_token']
         refresh_token = login_info.json()['refresh_token']
 
-        print(request.FILES['image'])
+        files = {}
+        if 'image' in request.FILES:
+            files = {
+                'image': request.FILES['image']
+            }
 
-        files = {
-            'image' : request.FILES['image']
-        }
-     
         url = request.build_absolute_uri('/post/')
-        data = {"user" : login_info.json()['user']['pk'],
-                "title" : request.data['title'],
-                "answers" : json.dumps(request.data['answers']),
-                "event_date" : request.data['event_date'],
-                "category" : request.data['category'],
-                "timeline" : request.data['timeline']}
-        header = {"Authorization" : "JWT " + access_token, "refresh_token" : refresh_token}
+        data = {"user": request.user.id,
+                "title": request.data['title'] if 'title' in request.data else '',
+                "answers": json.dumps(request.data['answers']) if 'answers' in request.data else [],
+                "event_date": request.data['event_date'] if 'event_data' in request.data else None,
+                "category": request.data['category'] if 'category' in request.data else None,
+                "timeline": request.data['timeline'] if 'timeline' in request.data else False}
+        header = {"Authorization": "JWT " +
+                  access_token, "refresh_token": refresh_token}
 
         post_info = requests.post(url, headers=header, data=data, files=files)
         return HttpResponse(post_info)
-        
-        
-
-

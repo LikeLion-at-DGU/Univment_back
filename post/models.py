@@ -18,7 +18,7 @@ class Category(models.Model):
 class Post(models.Model):
     id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    title = models.CharField(max_length = 1000, null=False, default = '')
+    title = models.CharField(max_length = 100, null=False, default = '')
     answers = models.JSONField(null = True)
     image = models.ImageField(null = True)
     event_date = models.DateField(default=datetime.date.today, null=False)
