@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 import requests
 from rest_framework import status
 from rest_framework.views import APIView
@@ -35,6 +36,11 @@ class CategoryList(generics.ListCreateAPIView):
         if not self.request.user.is_staff:
             if self.queryset.filter(generated_user=self.request.user.id).count() >= 3:
                 return Response({'오류': '카테고리는 최대 3개까지만 생성 가능합니다.'}, status=status.HTTP_403_FORBIDDEN)
+
+        if 'name' in request.data:
+            if Category.objects.all().filter(name=self.request.data['name']).exists():
+                if Category.objects.all().filter(name=self.request.data['name']).filter(isDefault=True).exists():
+                    return Response({'오류': '기본 카테고리와 이름이 동일한 카테고리는 생성이 불가합니다.'}, status=status.HTTP_403_FORBIDDEN)
 
         serializer = self.get_serializer(data=self.request.data)
         serializer.is_valid(raise_exception=True)
@@ -155,15 +161,29 @@ class PostWithLogin(APIView):
                 'image': request.FILES['image']
             }
 
+        if 'category' in request.data:
+            # 1. 기본 카테고리에서 찾기
+            # 2. 없으면 유저 카테고리에서 찾기
+ 
+                category = Category.objects.all().filter(name=request.data['category']).filter(isDefault=True)
+                if not category.exists():
+                    if Category.objects.all().filter(name=request.data['category']).filter(generated_user=int(login_info.json()['user']['pk'])).exists():
+                        category = Category.objects.all().filter(name=request.data['category']).filter(generated_user=int(login_info.json()['user']['pk'])).first()
+                    else:
+                        print(str(Category.objects.all().filter(name=request.data['category']).first().id))
+                        print(int(login_info.json()['user']['pk']))
+                        return Response({'오류': '카테고리 정보가 존재하지 않습니다.'}, status=status.HTTP_404_NOT_FOUND)
+       
+
         url = request.build_absolute_uri('/post/')
-        data = {"user": request.user.id,
+        data = {"user": int(login_info.json()['user']['pk']),
                 "title": request.data['title'] if 'title' in request.data else '',
                 "answer1": request.data['answer1'] if 'answer1' in request.data else '',
                 "answer2": request.data['answer2'] if 'answer2' in request.data else '',
                 "answer3": request.data['answer3'] if 'answer3' in request.data else '',
                 "answer4": request.data['answer4'] if 'answer4' in request.data else '',
                 "event_date": request.data['event_date'] if 'event_data' in request.data else None,
-                "category": request.data['category'] if 'category' in request.data else None,
+                "category": category.id,
                 "timeline": request.data['timeline'] if 'timeline' in request.data else False}
         header = {"Authorization": "JWT " +
                   access_token, "refresh_token": refresh_token}
