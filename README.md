@@ -41,7 +41,7 @@
 
 ## ProfileImage
 ### 프로필사진 수정하기
-### 127.0.0.1:8000/auth/user/ - PUT, PATCH
+### 127.0.0.1:8000/auth/user/ - PUT, PATCH, GET
     {
         "image":"이미지"
     }
