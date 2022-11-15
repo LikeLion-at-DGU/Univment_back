@@ -182,7 +182,7 @@ class PostWithLogin(APIView):
                 "answer2": request.data['answer2'] if 'answer2' in request.data else '',
                 "answer3": request.data['answer3'] if 'answer3' in request.data else '',
                 "answer4": request.data['answer4'] if 'answer4' in request.data else '',
-                "event_date": request.data['event_date'] if 'event_data' in request.data else None,
+                "event_date": request.data['event_date'] if 'event_date' in request.data else None,
                 "category": category.id,
                 "timeline": request.data['timeline'] if 'timeline' in request.data else False}
         header = {"Authorization": "JWT " +
