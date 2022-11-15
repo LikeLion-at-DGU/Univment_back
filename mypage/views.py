@@ -2,8 +2,8 @@ from .models import *
 from .serializers import *
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.decorators import permission_classes
+# from rest_framework.permissions import IsAuthenticatedOrReadOnly
+# from rest_framework.decorators import permission_classes
 from django.views import View
 from django.http import JsonResponse
 from django.db.models import Q
@@ -11,26 +11,6 @@ from accounts.models import User
 import re, json
 
 # Create your views here.
-# 프로필 사진 관련
-class ProfileImageCreate(generics.ListCreateAPIView):
-    queryset = ProfileImage.objects.all()
-    serializer_class = ProfileImageSerializer
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        qs = qs.filter(user=self.request.user)
-        return qs
-
-class ProfileImageDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ProfileImage.objects.all()
-    serializer_class = ProfileImageSerializer
-    lookup_field = 'user_id'
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        qs = qs.filter(user=self.request.user)
-        return qs
-
 # 명함 프로필 정보 관련
 class NameCardProfile(generics.ListCreateAPIView):
     queryset = Profile.objects.all()

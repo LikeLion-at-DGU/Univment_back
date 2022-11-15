@@ -376,7 +376,7 @@
         "answer4":"ex4",
         "image"(FILE): "http://127.0.0.1:8000/media/pikachu.png", # 선택
         "event_date": "2022-10-04", # 선택 (기본값 = 오늘 날짜)
-        "category": 1, # 필수
+        "category": "category1", # 필수
         "timeline": true, # 필수
         "email": "minyoung_stat@dgu.ac.kr", # 필수
         "password": "example123", #필수
