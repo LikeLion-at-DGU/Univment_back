@@ -26,7 +26,6 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = PostSerializer
 
-
 class CategoryList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated, ]
     queryset = Category.objects.all()
@@ -165,6 +164,8 @@ class PostWithLogin(APIView):
                         category = Category.objects.all().filter(name=request.data['category']).filter(generated_user=int(login_info.json()['user']['pk'])).first()
                     else:
                         return Response({'오류': '카테고리 정보가 존재하지 않습니다.'}, status=status.HTTP_404_NOT_FOUND)
+                else:
+                    category = Category.objects.all().filter(name=request.data['category']).filter(isDefault=True).first()
 
         url = request.build_absolute_uri('/post/')
 
