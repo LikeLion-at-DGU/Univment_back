@@ -2,14 +2,8 @@ from django.db import models
 import datetime
 
 from accounts.models import User
-# from django.core.validators import RegexValidator
-# from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
-class ProfileImage(models.Model):
-    id = models.AutoField(primary_key = True)
-    profileimage = models.ImageField(upload_to = 'profileimages/')
-    user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
 
 # NameCard(명함)에 들어갈 정보
 class Profile(models.Model):

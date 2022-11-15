@@ -1,13 +1,8 @@
 from django.urls import path
 from .views import *
-from .views import ProfileImageCreate, ProfileImageDetail
 
 app_name = "mypage"
 urlpatterns = [
-    #프로필 사진 생성
-    path('', ProfileImageCreate.as_view()),
-    #프로필 사진 보기, 수정, 삭제
-    path('<int:user_id>/', ProfileImageDetail.as_view()),
     #명함 프로필 내용 작성
     path('namecardprofile/', NameCardProfile.as_view()),
     #명함 프로필 보기, 수정, 삭제
