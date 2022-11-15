@@ -198,8 +198,11 @@ SIMPLE_JWT = {
 }
 
 # CORS 관련 추가
-CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000'
-                        ,'http://localhost:3000']
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000', 
+                        'http://localhost:3000', 
+                        'http://127.0.0.1:3001', 
+                        'http://localhost:3001', 
+                        'https://univment.netlify.app']
 CORS_ALLOW_CREDENTIALS = True
 
 
