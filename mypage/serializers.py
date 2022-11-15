@@ -1,15 +1,6 @@
 from rest_framework import serializers
 from .models import *
 
-class ProfileImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProfileImage
-        fields = ('id', 'user', 'profileimage')
-
-    def create(self, validated_data):
-        profileimage = ProfileImage.objects.create(**validated_data)
-        return profileimage
-
 #NameCard(명함) 관련된 시리얼라이저
 class NameCardProfileSerializer(serializers.ModelSerializer):
     class Meta:
