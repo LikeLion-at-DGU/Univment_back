@@ -26,7 +26,6 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = PostSerializer
 
-
 class CategoryList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated, ]
     queryset = Category.objects.all()
@@ -155,12 +154,6 @@ class PostWithLogin(APIView):
         access_token = login_info.json()['access_token']
         refresh_token = login_info.json()['refresh_token']
 
-        files = {}
-        if 'image' in request.FILES:
-            files = {
-                'image': request.FILES['image']
-            }
-
         if 'category' in request.data:
             # 1. 기본 카테고리에서 찾기
             # 2. 없으면 유저 카테고리에서 찾기
@@ -170,23 +163,24 @@ class PostWithLogin(APIView):
                     if Category.objects.all().filter(name=request.data['category']).filter(generated_user=int(login_info.json()['user']['pk'])).exists():
                         category = Category.objects.all().filter(name=request.data['category']).filter(generated_user=int(login_info.json()['user']['pk'])).first()
                     else:
-                        print(str(Category.objects.all().filter(name=request.data['category']).first().id))
-                        print(int(login_info.json()['user']['pk']))
                         return Response({'오류': '카테고리 정보가 존재하지 않습니다.'}, status=status.HTTP_404_NOT_FOUND)
-       
+                else:
+                    category = Category.objects.all().filter(name=request.data['category']).filter(isDefault=True).first()
 
         url = request.build_absolute_uri('/post/')
-        data = {"user": int(login_info.json()['user']['pk']),
-                "title": request.data['title'] if 'title' in request.data else '',
-                "answer1": request.data['answer1'] if 'answer1' in request.data else '',
-                "answer2": request.data['answer2'] if 'answer2' in request.data else '',
-                "answer3": request.data['answer3'] if 'answer3' in request.data else '',
-                "answer4": request.data['answer4'] if 'answer4' in request.data else '',
-                "event_date": request.data['event_date'] if 'event_date' in request.data else None,
-                "category": category.id,
-                "timeline": request.data['timeline'] if 'timeline' in request.data else False}
-        header = {"Authorization": "JWT " +
-                  access_token, "refresh_token": refresh_token}
 
-        post_info = requests.post(url, headers=header, data=data, files=files)
+        header = {}
+        data = json.loads(json.dumps(request.data))
+
+        header['Authorization'] = "JWT " + access_token
+        header['refresh_token'] = refresh_token
+
+        if 'Content-Type' in request.headers:
+            header['CONTENT_TYPE'] = request.META['CONTENT_TYPE']
+            header['CONTENT_LENGTH'] = request.META['CONTENT_LENGTH']
+
+        data['user'] = int(login_info.json()['user']['pk'])
+        data['category'] = category.id
+
+        post_info = requests.post(url, headers=header, data=data, files=request.FILES)
         return HttpResponse(post_info)
