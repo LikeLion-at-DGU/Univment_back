@@ -17,7 +17,6 @@ class Profile(models.Model):
 class Contacts(models.Model):
     # id = models.AutoField(primary_key = True)
     user = models.ForeignKey(User, max_length = 10, on_delete = models.CASCADE)
-    # myname = models.ForeignKey(Profile, on_delete = models.CASCADE)
     phonenumber = models.CharField(max_length = 13, unique=True)
     insta = models.CharField(max_length = 20, blank = True)
     github = models.CharField(max_length = 30, blank = True, null = True)
