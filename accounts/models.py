@@ -54,3 +54,6 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.name
+
+class CustomUser(AbstractUser):
+    fullname = models.CharField(max_length = 10)
